@@ -1,6 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
-using Input = UnityEngine.Windows.Input;
+
 
 public class CameraController : MonoBehaviour
 {
@@ -10,8 +10,8 @@ public class CameraController : MonoBehaviour
 
 	[Header("ScreenShake"), SerializeField]
 	private float shakeDuration;
-	[SerializeField] private float shakeStrength;
-	
+	[SerializeField] private float shakeStrength,zPosAfterZoom,zPosOriginal;
+
 	private Vector3 _initialLocalPos;
 	private float _normalFov;
 	private Camera _me;
@@ -41,6 +41,10 @@ public class CameraController : MonoBehaviour
 
 		_normalFov = _me.fieldOfView;
 		_initialLocalPos = transform.localPosition;
+
+		var pos = transform.position;
+		pos.z = zPosOriginal;
+		transform.position = pos;
 	}
 	
 	public void ZoomNormal()
@@ -65,11 +69,21 @@ public class CameraController : MonoBehaviour
 			transform.DOLocalMove(_initialLocalPos, 0.15f);
 		});
 	}
-	
+
+	private void ZoomCamera()
+	{
+		transform.DOMoveZ(zPosAfterZoom, zoomDuration).SetEase(Ease.Linear).OnComplete(() =>
+		{
+			GameEvents.InvokeOnCameraZoomActionCompleted();
+		});
+	}
+
 	private void OnTapToPlay()
 	{
-		ZoomAction();
-		ResetRotationWhileZoom();
+		/*ZoomAction();
+		ResetRotationWhileZoom();*/
+		
+		ZoomCamera();
 		
 		
 	}
@@ -77,6 +91,7 @@ public class CameraController : MonoBehaviour
 	private void ResetRotationWhileZoom()
 	{
 		transform.DORotateQuaternion(Quaternion.Euler(0,0,0),0.5f);
+		
 	}
 
 

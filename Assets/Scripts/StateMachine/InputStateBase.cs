@@ -3,6 +3,7 @@ using UnityEngine;
 public class InputStateBase
 {
 	public static bool IsPersistent;
+	
    
 	protected InputStateBase() { }
 	

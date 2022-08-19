@@ -1,4 +1,3 @@
-
 using System;
 using DG.Tweening;
 using UnityEngine;
@@ -24,8 +23,14 @@ public class EditorWindowCanvasController : MonoBehaviour
 
     private void Start()
     {
-        SetInitalEditorPanelPos();
+       SetInitalEditorPanelScale();
 
+    }
+
+    private void SetInitalEditorPanelScale()
+    {
+        editorWindowPanelRect.transform.localScale = Vector3.zero;
+        
     }
 
 
@@ -40,7 +45,8 @@ public class EditorWindowCanvasController : MonoBehaviour
     
     private void OnCameraZoomActionCompleted()
     {
-        editorWindowPanelRect.DOAnchorPos(Vector2.zero, editorPanelInDuration).SetEase(editorPanelInEase);
+        //editorWindowPanelRect.DOAnchorPos(Vector2.zero, editorPanelInDuration).SetEase(editorPanelInEase);
+        editorWindowPanelRect.transform.DOScale(Vector3.one, editorPanelInDuration).SetEase(editorPanelInEase);
     }
     
 }
