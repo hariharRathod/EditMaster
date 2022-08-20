@@ -75,8 +75,10 @@ public static class InputExtensions
 	public static bool GetFingerUp ()
 	{
 		if (EventSystem.current.IsPointerOverGameObject()) return false;
-
+		Debug.Log("Finger up");
+		
 		if (!IsUsingTouch) return Input.GetMouseButtonUp(0);
+		
 		
 		if (Input.touchCount == 0) return false;
 		

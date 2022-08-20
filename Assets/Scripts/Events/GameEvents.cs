@@ -7,7 +7,9 @@ public static partial class GameEvents
 
     public static event Action CameraZoomActionCompleted;
 
-    public static event Action<Transform> ImageSelected;
+    public static event Action<Transform> ImageSelected,EraserUsed;
+
+   
 }
 
 public static partial class GameEvents
@@ -17,6 +19,8 @@ public static partial class GameEvents
     public static void InvokeOnCameraZoomActionCompleted() => CameraZoomActionCompleted?.Invoke();
 
     public static void InvokeOnImageSelected(Transform obj) => ImageSelected?.Invoke(obj);
+
+    public static void InvokeOnEraserUsed(Transform obj) => EraserUsed?.Invoke(obj);
 }
 
 

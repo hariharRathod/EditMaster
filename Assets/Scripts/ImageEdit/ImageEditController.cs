@@ -36,16 +36,28 @@ public class ImageEditController : MonoBehaviour
     public CutStatus cutStatus;
 
 
+    private bool isSelected;
+
+
     private Transform _transform;
+
+    public bool IsSelected
+    {
+        get => isSelected;
+        set => isSelected = value;
+    }
+
 
     private void OnEnable()
     {
         GameEvents.ImageSelected += OnImageSelected;
+        GameEvents.EraserUsed += OnEraserUsed;
     }
 
     private void OnDisable()
     {
         GameEvents.ImageSelected -= OnImageSelected;
+        GameEvents.EraserUsed -= OnEraserUsed;
     }
 
     
@@ -60,12 +72,31 @@ public class ImageEditController : MonoBehaviour
         if (selectStatus == SelectStatus.NotSelectable) return;
 
         if (!_my.SelectHandler) return;
-        
-        if(selectedImgTransform == _transform)
+
+        if (selectedImgTransform == _transform)
+        {
             _my.SelectHandler.OnImageSelected(true);
+            IsSelected = true;
+        }
         else
+        {
             _my.SelectHandler.OnImageSelected(false);
+            IsSelected = false;
+        }
+        
+    }
+    
+    private void OnEraserUsed(Transform imgTransformToErase)
+    {
+        if (eraseStatus == EraseStatus.NotEraseable) return;
 
+        if (imgTransformToErase != _transform) return;
+        
+        if (!IsSelected) return;
 
+        if (!_my.EraseHandler) return;
+        
+        
+        _my.EraseHandler.OnEraserUsed();
     }
 }

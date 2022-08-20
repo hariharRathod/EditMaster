@@ -60,8 +60,10 @@ public class InputHandler : MonoBehaviour
 		{
 			_currentInputState = HandleInput();
 			_currentInputState?.OnEnter();
+			
 		}
 		_currentInputState?.Execute();
+
 		
 
 	}

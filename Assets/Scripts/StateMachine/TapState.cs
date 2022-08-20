@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TapState : InputStateBase
@@ -10,33 +9,48 @@ public class TapState : InputStateBase
 
     public override void Execute()
     {
+       
         //abstraction
         switch (ToolsManager.CurrentToolState)
         {
             case ToolsState.Select:
             {
-                print("In tap state Image Select case "); 
 
                 var ray = InputHandler.mainCamera.ScreenPointToRay(InputExtensions.GetInputPosition());
 
                 var hit = Physics2D.Raycast(ray.origin, ray.direction, 50f);
                 
-                print("raycast done in tap state");
                 if (!hit.collider) return;
+
+                if (!hit.transform.CompareTag("EditableImage")) return;
                 
                 print("Image Selected");
 
                 GameEvents.InvokeOnImageSelected(hit.transform);
+                
+                
             }
                 break;
             case ToolsState.Erase:
             {
+                var ray = InputHandler.mainCamera.ScreenPointToRay(InputExtensions.GetInputPosition());
+
+                var hit = Physics2D.Raycast(ray.origin, ray.direction, 50f);
+                
+                if (!hit.collider) return;
+                
+                if (!hit.transform.CompareTag("EditableImage")) return;
+                
+                GameEvents.InvokeOnEraserUsed(hit.transform);
+                
                 
             }
                 break;
         }
         
         InputHandler.AssignNewState(InputState.Idle);
+        
+        
     }
 
     public override void OnExit()

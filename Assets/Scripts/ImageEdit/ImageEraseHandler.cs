@@ -1,18 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ImageEraseHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private ImageEditRefBank _my;
 
-    // Update is called once per frame
-    void Update()
+
+    private void Start()
     {
-        
+        _my = GetComponent<ImageEditRefBank>();
     }
+    
+    
+   public void OnEraserUsed()
+   {
+        this.gameObject.SetActive(false);
+   }
+  
 }

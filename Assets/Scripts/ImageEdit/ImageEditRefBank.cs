@@ -7,6 +7,8 @@ public class ImageEditRefBank : MonoBehaviour
 
     public ImageSelectHandler SelectHandler { get; private set; }
 
+    public ImageEraseHandler EraseHandler { get; private set; }
+
 
     private void Start()
     {
@@ -15,6 +17,9 @@ public class ImageEditRefBank : MonoBehaviour
 
         if (transform.TryGetComponent(out ImageSelectHandler selectHandler))
             SelectHandler = selectHandler;
+
+        if (transform.TryGetComponent(out ImageEraseHandler eraseHandler))
+            EraseHandler = eraseHandler;
 
     }
 }
