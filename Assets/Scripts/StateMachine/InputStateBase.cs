@@ -33,6 +33,6 @@ public sealed class IdleState : InputStateBase
 {
 	public override void OnEnter()
 	{
-		//print("In idle");
+		print("In idle");
 	}
 }

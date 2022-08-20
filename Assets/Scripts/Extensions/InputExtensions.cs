@@ -1,5 +1,7 @@
+using System.Runtime.InteropServices;
 using UnityEngine;
- 
+using UnityEngine.EventSystems;
+
 public static class InputExtensions
 {
 	//make sure you set these somewhere on first touch
@@ -72,9 +74,13 @@ public static class InputExtensions
 	/// <returns></returns>
 	public static bool GetFingerUp ()
 	{
+		if (EventSystem.current.IsPointerOverGameObject()) return false;
+
 		if (!IsUsingTouch) return Input.GetMouseButtonUp(0);
 		
 		if (Input.touchCount == 0) return false;
+		
+		if (EventSystem.current.IsPointerOverGameObject(GetPointerId())) return false;
 			
 		return Input.GetTouch(0).phase == TouchPhase.Ended || Input.GetTouch(0).phase == TouchPhase.Canceled;
 	}

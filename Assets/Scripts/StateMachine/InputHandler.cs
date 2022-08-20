@@ -5,20 +5,13 @@ using UnityEngine;
 
 public enum InputState { Idle,TapState,Disabled,DragState}
 
-public enum ToolsState
-{
-	Select,
-	Erase,
-	Cut,
-	Patch,
-	none
-}
+
 
 public class InputHandler : MonoBehaviour
 {
 	private static InputStateBase _currentInputState;
 
-	public static ToolsState CurrentToolState;
+	
 		
 	//all states
 	private static readonly IdleState IdleState = new IdleState();
@@ -35,14 +28,16 @@ public class InputHandler : MonoBehaviour
 
 	private void OnEnable()
 	{
-		
+		GameEvents.OnTapToPlay += OnTapToPlay;
 	}
 
 	
 	private void OnDisable()
 	{
-		
+		GameEvents.OnTapToPlay -= OnTapToPlay;
 	}
+
+	
 
 	private void Start()
 	{
@@ -51,13 +46,15 @@ public class InputHandler : MonoBehaviour
 										Application.platform == RuntimePlatform.IPhonePlayer);
 		InputExtensions.TouchInputDivisor = MyHelpers.RemapClamped(1920, 2400, 30, 20, Screen.height);
 		mainCamera = Camera.main;
-		_currentInputState = DisabledState;
+		_currentInputState = IdleState;
 
 	}
 
 
 	private void Update()
 	{
+
+		if (!_hasTappedToPlay) return;
 
 		if (_currentInputState is IdleState)
 		{
@@ -68,6 +65,8 @@ public class InputHandler : MonoBehaviour
 		
 
 	}
+	
+	private void OnTapToPlay() => _hasTappedToPlay = true;
 
 	private InputStateBase HandleInput()
 	{
