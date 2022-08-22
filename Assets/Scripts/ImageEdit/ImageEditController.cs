@@ -4,6 +4,8 @@ public class ImageEditController : MonoBehaviour
 {
 
     private ImageEditRefBank _my;
+
+    [SerializeField] private GameObject myDrawableArea;
     
     public enum SelectStatus
     {
@@ -52,19 +54,24 @@ public class ImageEditController : MonoBehaviour
     {
         GameEvents.ImageSelected += OnImageSelected;
         GameEvents.EraserUsed += OnEraserUsed;
+        GameEvents.CutToolSelected += OnCutToolSelected;
+        GameEvents.SelectToolSelected += OnSelectToolSelected;
     }
 
     private void OnDisable()
     {
         GameEvents.ImageSelected -= OnImageSelected;
         GameEvents.EraserUsed -= OnEraserUsed;
+        GameEvents.CutToolSelected -= OnCutToolSelected;
+        GameEvents.SelectToolSelected -= OnSelectToolSelected;
     }
 
-    
     private void Start()
     {
         _transform = transform;
         _my = GetComponent<ImageEditRefBank>();
+        if(myDrawableArea)
+            myDrawableArea.SetActive(false);
     }
     
     private void OnImageSelected(Transform selectedImgTransform)
@@ -98,5 +105,28 @@ public class ImageEditController : MonoBehaviour
         
         
         _my.EraseHandler.OnEraserUsed();
+    }
+    
+    private void OnCutToolSelected()
+    {
+        if (!IsSelected)
+        {
+            if(myDrawableArea)
+                myDrawableArea.SetActive(false);
+            return;
+        }
+        
+        if(!myDrawableArea) return;
+        
+        myDrawableArea.SetActive(true);
+        
+        //ye shayad singlecast reh gaya,kuch karo iska.
+        GameEvents.InvokeOnMyDrawableAreaIsOn(myDrawableArea.transform);
+    }
+    
+    private void OnSelectToolSelected()
+    {
+        if(myDrawableArea)
+            myDrawableArea.SetActive(false);
     }
 }

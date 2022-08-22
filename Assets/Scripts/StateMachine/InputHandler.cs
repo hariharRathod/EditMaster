@@ -1,9 +1,10 @@
 using System;
 using DG.Tweening;
+using GestureRecognizer;
 using UnityEngine;
 
 
-public enum InputState { Idle,TapState,Disabled,DragState}
+public enum InputState { Idle,Tap,Disabled,Drag,Draw}
 
 
 
@@ -11,14 +12,18 @@ public class InputHandler : MonoBehaviour
 {
 	private static InputStateBase _currentInputState;
 
-	
-		
 	//all states
 	private static readonly IdleState IdleState = new IdleState();
 	
 	private static readonly DisabledState DisabledState =  new DisabledState();
 
+
 	private static readonly TapState TapState = new TapState();
+
+	public static DrawMechanic DrawMechanic { get; private set; }
+
+	private static DrawState _drawState;
+	
 
 	public static Camera mainCamera;
 	
@@ -46,6 +51,10 @@ public class InputHandler : MonoBehaviour
 										Application.platform == RuntimePlatform.IPhonePlayer);
 		InputExtensions.TouchInputDivisor = MyHelpers.RemapClamped(1920, 2400, 30, 20, Screen.height);
 		mainCamera = Camera.main;
+
+		DrawMechanic = GetComponentInChildren<DrawMechanic>();
+		_drawState = new DrawState(DrawMechanic);
+		
 		_currentInputState = IdleState;
 
 	}
@@ -72,6 +81,12 @@ public class InputHandler : MonoBehaviour
 
 	private InputStateBase HandleInput()
 	{
+
+		if (ToolsManager.CurrentToolState == ToolsState.Cut)
+		{
+			if(InputExtensions.GetFingerHeld()) return _drawState;
+		}
+		
 		if (InputExtensions.GetFingerUp()) return TapState;
 		
 		return _currentInputState;
@@ -85,7 +100,8 @@ public class InputHandler : MonoBehaviour
 		{
 			InputState.Idle => IdleState,
 			InputState.Disabled=>DisabledState,
-			InputState.TapState=> TapState,
+			InputState.Tap=> TapState,
+			InputState.Draw=>_drawState,
 			_ => throw new ArgumentOutOfRangeException(nameof(state), state, "aisa kya pass kar diya vrooo tune yahaan")
 		};
 

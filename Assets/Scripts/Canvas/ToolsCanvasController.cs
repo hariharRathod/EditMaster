@@ -14,7 +14,9 @@ public class ToolsCanvasController : MonoBehaviour
     {
         currentToolIndex = 0;
         print("on select pressed");
+        InputHandler.AssignNewState(InputState.Idle);
         ToolsManager.CurrentToolState = ToolsState.Select;
+        GameEvents.InvokeOnSelectToolSelected();
         ColorButtonImage();
                 
         
@@ -23,7 +25,17 @@ public class ToolsCanvasController : MonoBehaviour
     public void OnMagicEraseToolPressed()
     {
         currentToolIndex = 1;
+        InputHandler.AssignNewState(InputState.Idle);
         ToolsManager.CurrentToolState = ToolsState.Erase;
+        ColorButtonImage();
+    }
+
+    public void OnCutToolPressed()
+    {
+        currentToolIndex = 2;
+        InputHandler.AssignNewState(InputState.Idle);
+        ToolsManager.CurrentToolState = ToolsState.Cut;
+        GameEvents.InvokeOnCutToolSelected();
         ColorButtonImage();
     }
 
