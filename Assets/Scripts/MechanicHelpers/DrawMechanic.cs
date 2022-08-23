@@ -118,7 +118,12 @@ namespace GestureRecognizer
 			//abhi ke liye ise comment kiya hai.
 			//StartCoroutine(Recognise());
 		}
-		
+
+		public void RecogniseUserInput()
+		{
+			StartCoroutine(Recognise());
+		}
+
 		private void DimLines()
 		{
 			if(_linesRenderers.Count < 1) return;
