@@ -22,8 +22,10 @@ namespace GestureRecognizer
 		[SerializeField] private Color lineColor, dimColor;
 		[SerializeField] private float dimDuration = 0.25f;
 
-		private Recognizer _recognizer;
+		
 		private LineRenderer _currentLine;
+
+		private MyRecogniserWraper myRecogniserWraper;
 
 		private Color2 _lineGradient, _dimGradient;
 		private Vector2 _lastPoint;
@@ -53,7 +55,8 @@ namespace GestureRecognizer
 
 		private void Start()
 		{
-			_recognizer = GetComponent<Recognizer>();
+			
+			myRecogniserWraper = GetComponent<MyRecogniserWraper>();
 
 			_lineGradient = new Color2(lineColor, lineColor);
 			_dimGradient = new Color2(dimColor, dimColor);
@@ -174,7 +177,7 @@ namespace GestureRecognizer
 
 				//run in another thread
 
-				var thread = new System.Threading.Thread(() => result = _recognizer.Recognize(sizedData, false));
+				var thread = new System.Threading.Thread(() => result = myRecogniserWraper.Recognize(sizedData, false));
 				thread.Start();
 				while (thread.IsAlive)
 					yield return null;
@@ -201,6 +204,7 @@ namespace GestureRecognizer
 			}
 			
 			//GameCanvas.game.SetRecognisedNumber(resultID);
+			print("result id: " + resultID);
 			yield return null;
 		}
 
@@ -215,7 +219,7 @@ namespace GestureRecognizer
 			_lastPoint == Vector2.negativeInfinity ? float.PositiveInfinity : Vector2.Distance(new Vector2(_lastPoint.x, _lastPoint.y), newPoint);
 		
 		
-		private void OnDrawableAreaIsOn(Transform drawableAreaTransform)
+		private void OnDrawableAreaIsOn(Transform drawableAreaTransform,GesturePattern gesturePattern)
 		{
 			drawArea = drawableAreaTransform;
 		}

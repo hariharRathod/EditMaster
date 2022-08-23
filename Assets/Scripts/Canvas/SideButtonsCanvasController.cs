@@ -63,6 +63,7 @@ public class SideButtonsCanvasController : MonoBehaviour
         if (!drawMechanic) return;
         
         drawMechanic.ClearAllDrawing();
+        InputHandler.AssignNewState(InputState.Idle);
     }
 
 

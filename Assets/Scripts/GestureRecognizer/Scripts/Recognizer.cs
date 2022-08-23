@@ -205,7 +205,9 @@ namespace GestureRecognizer
 
             var permutations = permutIndexes.Select(e => makePermutation(e, queryData)).ToList();
             var singlePermutation = permutations.GetRange(0, 1);
-
+            print("patterns count: " + patterns.Count);
+           
+            
             int n_threads = Mathf.Min(this.numberOfThreads, patterns.Count);
 
             var threads = new List<Thread>();
@@ -583,6 +585,8 @@ namespace GestureRecognizer
                     return Vector2.Lerp(v1, v2, tt);
                 }
             }
+            
+            print("vector2 : " + (t > 0.5f ? vs[vs.Count - 1] : vs[0]));
             return t > 0.5f ? vs[vs.Count - 1] : vs[0];
         }
 

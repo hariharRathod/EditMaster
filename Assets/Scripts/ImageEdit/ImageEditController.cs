@@ -1,3 +1,4 @@
+using GestureRecognizer;
 using UnityEngine;
 
 public class ImageEditController : MonoBehaviour
@@ -6,6 +7,7 @@ public class ImageEditController : MonoBehaviour
     private ImageEditRefBank _my;
 
     [SerializeField] private GameObject myDrawableArea;
+    [SerializeField] private GesturePattern myGesturePattern;
     
     public enum SelectStatus
     {
@@ -118,10 +120,15 @@ public class ImageEditController : MonoBehaviour
         
         if(!myDrawableArea) return;
         
+        if(!myGesturePattern) return;
+        
         myDrawableArea.SetActive(true);
         
-        //ye shayad singlecast reh gaya,kuch karo iska.
-        GameEvents.InvokeOnMyDrawableAreaIsOn(myDrawableArea.transform);
+        
+        //this is enabling draw area and setting gesture pattern.
+        GameEvents.InvokeOnMyDrawableAreaIsOn(myDrawableArea.transform,myGesturePattern);
+        
+        
     }
     
     private void OnSelectToolSelected()
