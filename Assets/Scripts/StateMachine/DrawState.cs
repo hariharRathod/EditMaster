@@ -22,17 +22,19 @@ public class DrawState : InputStateBase
         
         var ray = InputHandler.mainCamera.ScreenPointToRay(InputExtensions.GetInputPosition());
 
+        Debug.DrawRay(ray.origin,Vector3.forward,Color.red,2f);
+        
         if (!Physics.Raycast(ray, out var hit, 50f))
         {
-           
+            
             return;
         }
 
-        if (!hit.transform.CompareTag("Drawable")) return;
+        if (!hit.transform.CompareTag("Drawable")) { return;}
 
         if (!hit.transform.parent.TryGetComponent(out ImageEditController editController)) return;
         
-        if (!editController.IsSelected) return;
+        if (!editController.IsSelected){ return;}
         
         _drawMechanic.Draw(hit);
         

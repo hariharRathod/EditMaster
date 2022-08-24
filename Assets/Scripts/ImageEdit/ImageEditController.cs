@@ -58,6 +58,7 @@ public class ImageEditController : MonoBehaviour
         GameEvents.EraserUsed += OnEraserUsed;
         GameEvents.CutToolSelected += OnCutToolSelected;
         GameEvents.SelectToolSelected += OnSelectToolSelected;
+        GameEvents.CutDoneAccurately += OnCutDoneAccurately;
     }
 
     private void OnDisable()
@@ -66,6 +67,7 @@ public class ImageEditController : MonoBehaviour
         GameEvents.EraserUsed -= OnEraserUsed;
         GameEvents.CutToolSelected -= OnCutToolSelected;
         GameEvents.SelectToolSelected -= OnSelectToolSelected;
+        GameEvents.CutDoneAccurately -= OnCutDoneAccurately;
     }
 
     private void Start()
@@ -100,8 +102,12 @@ public class ImageEditController : MonoBehaviour
         if (eraseStatus == EraseStatus.NotEraseable) return;
 
         if (imgTransformToErase != _transform) return;
-        
-        if (!IsSelected) return;
+
+        if (!IsSelected)
+        {
+            GameEvents.InvokeOnImageNotSelectedMessage();
+            return;
+        }
 
         if (!_my.EraseHandler) return;
         
@@ -115,6 +121,8 @@ public class ImageEditController : MonoBehaviour
         {
             if(myDrawableArea)
                 myDrawableArea.SetActive(false);
+            
+           
             return;
         }
         
@@ -135,5 +143,14 @@ public class ImageEditController : MonoBehaviour
     {
         if(myDrawableArea)
             myDrawableArea.SetActive(false);
+    }
+    
+    private void OnCutDoneAccurately()
+    {
+        if (!IsSelected) return;
+        
+        _my.SelectHandler.OnImageSelected(false);
+        IsSelected = false;
+        
     }
 }

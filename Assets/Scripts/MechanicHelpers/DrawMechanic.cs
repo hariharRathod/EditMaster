@@ -27,6 +27,8 @@ namespace GestureRecognizer
 
 		private MyRecogniserWraper myRecogniserWraper;
 
+		private CutCheckHandler cutCheckHandler;
+
 		private Color2 _lineGradient, _dimGradient;
 		private Vector2 _lastPoint;
 		private readonly GestureData _data = new();
@@ -42,6 +44,7 @@ namespace GestureRecognizer
 			GameEvents.MyDrawableAreaIsOn += OnDrawableAreaIsOn;
 			GameEvents.SelectToolSelected += OnSelectToolSelected;
 			GameEvents.EraserToolSelected += OnEraserToolSelected;
+			GameEvents.CutDoneAccurately += OnCutDoneAccurately;
 		}
 
 		private void OnDisable()
@@ -49,15 +52,15 @@ namespace GestureRecognizer
 			GameEvents.MyDrawableAreaIsOn -= OnDrawableAreaIsOn;
 			GameEvents.SelectToolSelected -= OnSelectToolSelected;
 			GameEvents.EraserToolSelected -= OnEraserToolSelected;
+			GameEvents.CutDoneAccurately -= OnCutDoneAccurately;
 		}
-
-		
 
 		private void Start()
 		{
 			
 			myRecogniserWraper = GetComponent<MyRecogniserWraper>();
-
+			cutCheckHandler = GetComponent<CutCheckHandler>();
+			
 			_lineGradient = new Color2(lineColor, lineColor);
 			_dimGradient = new Color2(dimColor, dimColor);
 
@@ -181,7 +184,9 @@ namespace GestureRecognizer
 				thread.Start();
 				while (thread.IsAlive)
 					yield return null;
-
+				
+				print("result score: " + result.score.score);
+				
 				if (result.gesture && result.score.score >= scoreToAccept)
 				{
 					resultID = Convert.ToInt32(result.gesture.id);
@@ -203,8 +208,10 @@ namespace GestureRecognizer
 				}
 			}
 			
-			//GameCanvas.game.SetRecognisedNumber(resultID);
-			print("result id: " + resultID);
+			
+			
+			//check if cut done properly, 
+			cutCheckHandler.CheckCutResult(resultID);
 			yield return null;
 		}
 
@@ -230,6 +237,11 @@ namespace GestureRecognizer
 		}
 		
 		private void OnEraserToolSelected()
+		{
+			ClearAllDrawing();
+		}
+		
+		private void OnCutDoneAccurately()
 		{
 			ClearAllDrawing();
 		}

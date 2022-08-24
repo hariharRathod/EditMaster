@@ -149,7 +149,7 @@ Material:
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _GradientOutline1: {r: 1, g: 1, b: 1, a: 1}
     - _GradientOutline2: {r: 1, g: 1, b: 1, a: 1}
-    - _ImageOutline: {r: 0.63529414, g: 0.7973131, b: 1, a: 1}
+    - _ImageOutline: {r: 0.7075472, g: 0.7075472, b: 0.7075472, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _SolidOutline: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}

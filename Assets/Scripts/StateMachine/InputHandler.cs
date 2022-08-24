@@ -34,12 +34,14 @@ public class InputHandler : MonoBehaviour
 	private void OnEnable()
 	{
 		GameEvents.OnTapToPlay += OnTapToPlay;
+		GameEvents.CutDoneAccurately += OnCutDoneAccurately;
 	}
 
 	
 	private void OnDisable()
 	{
 		GameEvents.OnTapToPlay -= OnTapToPlay;
+		GameEvents.CutDoneAccurately -= OnCutDoneAccurately;
 	}
 
 	
@@ -106,6 +108,13 @@ public class InputHandler : MonoBehaviour
 		};
 
 		_currentInputState?.OnEnter();
+	}
+	
+	
+	private void OnCutDoneAccurately()
+	{
+		_currentInputState = IdleState;
+		ToolsManager.CurrentToolState = ToolsState.none;
 	}
 
 	

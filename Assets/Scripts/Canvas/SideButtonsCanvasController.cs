@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class SideButtonsCanvasController : MonoBehaviour
 {
-    [SerializeField] private GameObject cutDoneButton, cutClearButton, imageNotSelectedButton;
+    [SerializeField] private GameObject cutDoneButton, cutClearButton, imageNotSelectedMessageGameObject,cutDoneMessageGameObject,cutNotDoneMessageGameObject,selectImageInstructionGameObject,cutImageInstructionGameObject;
 
 
     [Space(5),SerializeField] private List<GameObject> sideButtonsList;
@@ -25,6 +25,10 @@ public class SideButtonsCanvasController : MonoBehaviour
         GameEvents.SelectToolSelected += OnSelectToolSelected;
         GameEvents.EraserToolSelected += OnEraseToolSelected;
         GameEvents.CameraZoomActionCompleted += OnCameraZoomCompleted;
+        GameEvents.CutDoneAccurately += OnCutDoneAccurately;
+        GameEvents.CutNotAccurate += OnCutNotDoneAccurately;
+        GameEvents.ImageNotSelectedMessage += OnImageNotSelectedMessage;
+        GameEvents.ImageSelected += OnAnyImageSelected;
 
     }
 
@@ -34,9 +38,13 @@ public class SideButtonsCanvasController : MonoBehaviour
         GameEvents.SelectToolSelected -= OnSelectToolSelected;
         GameEvents.EraserToolSelected -= OnEraseToolSelected;
         GameEvents.CameraZoomActionCompleted -= OnCameraZoomCompleted;
+        GameEvents.CutDoneAccurately -= OnCutDoneAccurately;
+        GameEvents.CutNotAccurate -= OnCutNotDoneAccurately;
+        GameEvents.ImageNotSelectedMessage -= OnImageNotSelectedMessage;
+        GameEvents.ImageSelected -= OnAnyImageSelected;
     }
 
-   
+    
     private void Start()
     {
         
@@ -110,6 +118,7 @@ public class SideButtonsCanvasController : MonoBehaviour
 
     private void OnCutToolSelected()
     {
+        SideButtonInAnimation(cutImageInstructionGameObject);
         SideButtonInAnimation(cutDoneButton);
         SideButtonInAnimation(cutClearButton);
     }
@@ -135,14 +144,16 @@ public class SideButtonsCanvasController : MonoBehaviour
         bool isRightButton;
         RectTransform buttonrect = button.GetComponent<RectTransform>();
         Vector3 buttonpos = buttonrect.anchoredPosition;
-        if (Mathf.Abs(buttonpos.x) > (Screen.width * 0.5f))
-            isRightButton = false;
-        else
-            isRightButton = true;
+        if (!button.TryGetComponent(out CanvasGameObjectSideDecider canvasGameObjectSideDecider)) return;
         
+        if (canvasGameObjectSideDecider.IsRightSideButton)
+            isRightButton = true;
+        else
+            isRightButton = false;
         
         if (isRightButton)
         {
+            print( button.name + "is right button");
             foreach (KeyValuePair<string,Vector3> ele in buttonsDict)
             {
                 if (String.Compare(ele.Key, button.gameObject.name) == 0)
@@ -156,6 +167,7 @@ public class SideButtonsCanvasController : MonoBehaviour
         }
         else
         {
+            print(button.name + "is left button");
             foreach (KeyValuePair<string,Vector3> ele in buttonsDict)
             {
                 if (String.Compare(ele.Key, button.gameObject.name) == 0)
@@ -173,16 +185,53 @@ public class SideButtonsCanvasController : MonoBehaviour
     {
        SideButtonOutAnimation(cutDoneButton);
        SideButtonOutAnimation(cutClearButton);
+       SideButtonOutAnimation(cutImageInstructionGameObject);
     }
 
     private void OnSelectToolSelected()
     {
         SideButtonOutAnimation(cutDoneButton);
         SideButtonOutAnimation(cutClearButton);
+        SideButtonOutAnimation(cutImageInstructionGameObject);
     }
     
     private void OnCameraZoomCompleted()
     {
-       DOVirtual.DelayedCall(0.5f,()=> EnableAllSideButtons());
+       DOVirtual.DelayedCall(0.5f,()=> EnableAllSideButtons()).OnComplete(()=>
+       {
+            SideButtonInAnimation(selectImageInstructionGameObject);    
+       });
+    }
+    
+    private void OnCutDoneAccurately()
+    {
+        SideButtonOutAnimation(cutDoneButton);
+        SideButtonOutAnimation(cutClearButton);
+        SideButtonOutAnimation(cutImageInstructionGameObject);
+        
+        SideButtonInAnimation(cutDoneMessageGameObject);
+
+        DOVirtual.DelayedCall(1, () => SideButtonOutAnimation(cutDoneMessageGameObject));
+    }
+    
+    private void OnCutNotDoneAccurately()
+    {
+        
+        SideButtonInAnimation(cutNotDoneMessageGameObject);
+
+        DOVirtual.DelayedCall(1.3f, () => SideButtonOutAnimation(cutNotDoneMessageGameObject));
+    }
+    
+    
+    private void OnImageNotSelectedMessage()
+    {
+       SideButtonInAnimation(imageNotSelectedMessageGameObject);
+       
+       DOVirtual.DelayedCall(1f, () => SideButtonOutAnimation(imageNotSelectedMessageGameObject));
+    }
+    
+    private void OnAnyImageSelected(Transform obj)
+    {
+        SideButtonOutAnimation(selectImageInstructionGameObject);
     }
 }

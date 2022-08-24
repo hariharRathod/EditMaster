@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,8 +9,20 @@ public class ToolsCanvasController : MonoBehaviour
     [SerializeField] private List<Image> buttonImageList;
 
     private int currentToolIndex;
+
+    private void OnEnable()
+    {
+        GameEvents.CutDoneAccurately += OnCutDoneAccurately;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.CutDoneAccurately -= OnCutDoneAccurately;
+    }
+
     
-    
+
+
     public void OnSelectToolPressed()
     {
         currentToolIndex = 0;
@@ -27,6 +40,7 @@ public class ToolsCanvasController : MonoBehaviour
         currentToolIndex = 1;
         InputHandler.AssignNewState(InputState.Idle);
         ToolsManager.CurrentToolState = ToolsState.Erase;
+        GameEvents.InvokeOnEraserToolSelected();
         ColorButtonImage();
     }
 
@@ -53,6 +67,12 @@ public class ToolsCanvasController : MonoBehaviour
                 buttonImageList[i].color = Color.white;
             }
         }
+    }
+    
+    private void OnCutDoneAccurately()
+    {
+        currentToolIndex = -1;
+        ColorButtonImage();
     }
 
 

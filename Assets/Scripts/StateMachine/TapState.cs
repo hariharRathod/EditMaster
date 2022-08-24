@@ -19,10 +19,10 @@ public class TapState : InputStateBase
                 var ray = InputHandler.mainCamera.ScreenPointToRay(InputExtensions.GetInputPosition());
 
                 var hit = Physics2D.Raycast(ray.origin, ray.direction, 50f);
-                
-                if (!hit.collider) return;
 
-                if (!hit.transform.CompareTag("EditableImage")) return;
+                if(!hit.collider) return;
+                
+                if (!hit.transform.CompareTag("EditableImage")) { InputHandler.AssignNewState(InputState.Idle);return;}
                 
                 print("Image Selected");
 
@@ -37,9 +37,9 @@ public class TapState : InputStateBase
 
                 var hit = Physics2D.Raycast(ray.origin, ray.direction, 50f);
                 
-                if (!hit.collider) return;
+                if(!hit.collider) return;
                 
-                if (!hit.transform.CompareTag("EditableImage")) return;
+                if (!hit.transform.CompareTag("EditableImage")) { InputHandler.AssignNewState(InputState.Idle);return;}
                 
                 GameEvents.InvokeOnEraserUsed(hit.transform);
                 
