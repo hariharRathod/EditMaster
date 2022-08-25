@@ -1,5 +1,6 @@
 using GestureRecognizer;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class ImageEditController : MonoBehaviour
 {
@@ -33,16 +34,23 @@ public class ImageEditController : MonoBehaviour
         NotCutable
     }
 
+    public enum ReplaceStatus
+    {
+        IsReplacable,
+        NotReplacable
+    }
+
 
     public SelectStatus selectStatus;
     public EraseStatus eraseStatus;
     public MoveStatus moveStatus;
     public CutStatus cutStatus;
+    public ReplaceStatus replaceStatus;
 
 
     private bool isSelected;
 
-
+    private SpriteRenderer imageSprite;
     private Transform _transform;
 
     public bool IsSelected
@@ -76,6 +84,9 @@ public class ImageEditController : MonoBehaviour
         _my = GetComponent<ImageEditRefBank>();
         if(myDrawableArea)
             myDrawableArea.SetActive(false);
+
+        imageSprite = GetComponent<SpriteRenderer>();
+
     }
     
     private void OnImageSelected(Transform selectedImgTransform)
@@ -152,5 +163,17 @@ public class ImageEditController : MonoBehaviour
         _my.SelectHandler.OnImageSelected(false);
         IsSelected = false;
         
+    }
+
+    public void ReplaceImage(Sprite sprite)
+    {
+        print("In replace image");
+        
+        if(replaceStatus == ReplaceStatus.NotReplacable) return;
+
+        if (!IsSelected) return;
+        
+        print("change sprite");
+        imageSprite.sprite = sprite;
     }
 }

@@ -53,6 +53,15 @@ public class ToolsCanvasController : MonoBehaviour
         ColorButtonImage();
     }
 
+    public void OnBackgroundOptionsToolPressed()
+    {
+        currentToolIndex = 3;
+        InputHandler.AssignNewState(InputState.Idle);
+        ToolsManager.CurrentToolState = ToolsState.BackgroundChange;
+        ColorButtonImage();
+
+    }
+
 
     private void ColorButtonImage()
     {

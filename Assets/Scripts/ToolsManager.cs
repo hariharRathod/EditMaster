@@ -5,6 +5,9 @@ public enum ToolsState
     Erase,
     Cut,
     Patch,
+    BackgroundChange,
+    ClothsChange,
+    HairChange,
     none
 }
 

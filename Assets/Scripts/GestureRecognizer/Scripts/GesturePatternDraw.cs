@@ -12,14 +12,14 @@ namespace GestureRecognizer {
 		public GesturePattern pattern;
 
 		public float endingSize = 0;
-
+#if UNITY_EDITOR
 		protected override void OnValidate(){
 			this.relativeSize = true;
 			this.endingSize = Mathf.Max (0, this.endingSize);
 			this.LineList = true;
 			SetAllDirty ();
 		}
-
+#endif
 		protected override void OnPopulateMesh (UnityEngine.UI.VertexHelper vh) {
 			DrawPattern ();
 			base.OnPopulateMesh (vh);

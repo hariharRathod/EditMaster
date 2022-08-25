@@ -59,7 +59,6 @@ public static class MyHelpers
 
 		var results = new List<RaycastResult>();
 		EventSystem.current.RaycastAll(pointerData, results);
-			
 		Print(results[0].gameObject);
 	}
 	
