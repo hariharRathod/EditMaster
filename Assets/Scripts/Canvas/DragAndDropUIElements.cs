@@ -57,9 +57,7 @@ public class DragAndDropUIElements : MonoBehaviour, IPointerDownHandler, IBeginD
 
     public void OnDrag(PointerEventData eventData)
     {
-        
        
-
         var anchoredPosition = _rectTransform.anchoredPosition;
         var previPosition = anchoredPosition;
 

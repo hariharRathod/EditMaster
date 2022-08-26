@@ -99,6 +99,8 @@ public class ImageEditController : MonoBehaviour
         {
             _my.SelectHandler.OnImageSelected(true);
             IsSelected = true;
+            
+            GameFlowController.GameStepByStepProgressionController.ToolTaskCompleted(GameToolsIndex.SelectToolIndex);
         }
         else
         {
@@ -124,6 +126,8 @@ public class ImageEditController : MonoBehaviour
         
         
         _my.EraseHandler.OnEraserUsed();
+        
+        GameFlowController.GameStepByStepProgressionController.ToolTaskCompleted(GameToolsIndex.EraserToolIndex);
     }
     
     private void OnCutToolSelected()

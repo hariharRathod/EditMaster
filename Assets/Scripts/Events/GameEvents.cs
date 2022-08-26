@@ -10,13 +10,17 @@ public static partial class GameEvents
 
     public static event Action<Transform> ImageSelected,EraserUsed;
 
-    public static event Action CutToolSelected,SelectToolSelected,EraserToolSelected;
+    public static event Action CutToolSelected,SelectToolSelected,EraserToolSelected,BackgroundChangeToolSelected;
 
     public static event Action<Transform, GesturePattern> MyDrawableAreaIsOn;
 
     public static event Action CutNotAccurate, CutDoneAccurately;
 
     public static event Action ImageNotSelectedMessage;
+
+    public static event Action<int> ActivateNextTool;
+
+
 
 
 }
@@ -33,8 +37,6 @@ public static partial class GameEvents
 
     public static void InvokeOnCutToolSelected() => CutToolSelected?.Invoke();
 
-   
-
     public static void InvokeOnSelectToolSelected() => SelectToolSelected?.Invoke();
 
     public static void InvokeOnEraserToolSelected() => EraserToolSelected?.Invoke();
@@ -46,6 +48,10 @@ public static partial class GameEvents
     public static void InvokeOnCutDoneAccurately() => CutDoneAccurately?.Invoke();
 
     public static void InvokeOnImageNotSelectedMessage() => ImageNotSelectedMessage?.Invoke();
+
+    public static void InvokeOnBackgroundChangeToolSelected() => BackgroundChangeToolSelected?.Invoke();
+
+    public static void InvokeOnActivateNextTool(int obj) => ActivateNextTool?.Invoke(obj);
 }
 
 

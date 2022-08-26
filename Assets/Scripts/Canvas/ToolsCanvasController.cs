@@ -7,20 +7,35 @@ public class ToolsCanvasController : MonoBehaviour
 {
 
     [SerializeField] private List<Image> buttonImageList;
+    [SerializeField] private List<GameObject> toolsButtonsList;
 
     private int currentToolIndex;
 
     private void OnEnable()
     {
         GameEvents.CutDoneAccurately += OnCutDoneAccurately;
+       
     }
 
     private void OnDisable()
     {
         GameEvents.CutDoneAccurately -= OnCutDoneAccurately;
+       
     }
 
-    
+
+    private void Start()
+    {
+        DeactivateAllToolsButtons();
+    }
+
+    private void DeactivateAllToolsButtons()
+    {
+        for (int i = 0; i < toolsButtonsList.Count; i++)
+        {
+            toolsButtonsList[i].SetActive(false);
+        }
+    }
 
 
     public void OnSelectToolPressed()
@@ -31,6 +46,7 @@ public class ToolsCanvasController : MonoBehaviour
         ToolsManager.CurrentToolState = ToolsState.Select;
         GameEvents.InvokeOnSelectToolSelected();
         ColorButtonImage();
+        
                 
         
     }
@@ -58,6 +74,7 @@ public class ToolsCanvasController : MonoBehaviour
         currentToolIndex = 3;
         InputHandler.AssignNewState(InputState.Idle);
         ToolsManager.CurrentToolState = ToolsState.BackgroundChange;
+        GameEvents.InvokeOnBackgroundChangeToolSelected();
         ColorButtonImage();
 
     }
@@ -82,6 +99,14 @@ public class ToolsCanvasController : MonoBehaviour
     {
         currentToolIndex = -1;
         ColorButtonImage();
+    }
+
+
+    public void EnableToolButton(int toolIndex)
+    {
+        if(toolIndex > toolsButtonsList.Count) return;
+        
+        toolsButtonsList[toolIndex].SetActive(true);
     }
 
 
