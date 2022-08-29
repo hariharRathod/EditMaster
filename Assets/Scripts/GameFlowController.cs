@@ -35,8 +35,6 @@ public class GameFlowController : MonoBehaviour
     {
         ToolsManager.CurrentToolState = ToolsState.none;
 
-        if (!ToolsCanvasController) return;
-        
         ToolsCanvasController.EnableToolButton(GameToolsIndex.SelectToolIndex);
     }
 

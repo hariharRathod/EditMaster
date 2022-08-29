@@ -1,3 +1,4 @@
+using System.Diagnostics.Tracing;
 using GestureRecognizer;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -40,12 +41,19 @@ public class ImageEditController : MonoBehaviour
         NotReplacable
     }
 
+    public enum CutAccuratelyOnOffStatus
+    {
+        Enable,
+        Disable
+    }
+
 
     public SelectStatus selectStatus;
     public EraseStatus eraseStatus;
     public MoveStatus moveStatus;
     public CutStatus cutStatus;
     public ReplaceStatus replaceStatus;
+    public CutAccuratelyOnOffStatus cutAccuratelyOnOffStatus;
 
 
     private bool isSelected;
@@ -162,11 +170,19 @@ public class ImageEditController : MonoBehaviour
     
     private void OnCutDoneAccurately()
     {
-        if (!IsSelected) return;
+        if (!IsSelected)
+        {
+            if (cutAccuratelyOnOffStatus == CutAccuratelyOnOffStatus.Enable) return;
+
+            imageSprite.sprite = null;
+            return;
+        }
         
         _my.SelectHandler.OnImageSelected(false);
         IsSelected = false;
         
+        GameFlowController.GameStepByStepProgressionController.ToolTaskCompleted(GameToolsIndex.CutToolIndex);
+
     }
 
     public void ReplaceImage(Sprite sprite)
@@ -175,8 +191,6 @@ public class ImageEditController : MonoBehaviour
         
         if(replaceStatus == ReplaceStatus.NotReplacable) return;
 
-        if (!IsSelected) return;
-        
         print("change sprite");
         imageSprite.sprite = sprite;
     }

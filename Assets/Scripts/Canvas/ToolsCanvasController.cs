@@ -104,7 +104,6 @@ public class ToolsCanvasController : MonoBehaviour
 
     public void EnableToolButton(int toolIndex)
     {
-        if(toolIndex > toolsButtonsList.Count) return;
         
         toolsButtonsList[toolIndex].SetActive(true);
     }

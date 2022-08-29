@@ -28,22 +28,48 @@ public class GameStepByStepProgressionController : MonoBehaviour
     {
 
         if (!_gameToolsProgressionDict.ContainsKey(index)) return;
-        
-        foreach (KeyValuePair<int, int> ele in _gameToolsProgressionDict)
-        {
-            if(ele.Key!=index) continue;
-            
-            //check if tool already active i.e 1.
-            if (ele.Value == 1) return;
 
-            _gameToolsProgressionDict[ele.Key] = 1;
+        if (_gameToolsProgressionDict[index] == 1) return;
+        
+        print("Tooltask completed");
+        
+        UpdateToolsDict(index);
+        
+        ActivateNextToolIndex(index);
+
+    }
+
+    public void ActivateNextToolIndex(int index)
+    {
+        print("Inside activate next tool");
+        
+        int nextToolIndex = -1;
+        
+        for (int i = 0; i < GameFlowController.only.ToolsActivationOrder.Count; i++)
+        {
+            if (GameFlowController.only.ToolsActivationOrder[i] != index) continue;
+
+            i = i + 1;
+            if (i >= GameFlowController.only.ToolsActivationOrder.Count) return;
             
-            //Activate next button
-           if(!GameFlowController.ToolsCanvasController) return;
-           
-           GameFlowController.ToolsCanvasController.EnableToolButton(index);
-            
+            nextToolIndex = GameFlowController.only.ToolsActivationOrder[i];
+
+            break;
+
         }
+        
+        if(nextToolIndex < 0) return;
+        
+        print("Enable next index: " + nextToolIndex);
+        
+        GameFlowController.ToolsCanvasController.EnableToolButton(nextToolIndex);
+        
+    }
+
+    public void UpdateToolsDict(int index)
+    {
+        _gameToolsProgressionDict[index] = 1;
+        
     }
 
 
