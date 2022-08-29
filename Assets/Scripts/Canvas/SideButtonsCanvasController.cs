@@ -29,6 +29,7 @@ public class SideButtonsCanvasController : MonoBehaviour
         GameEvents.CutNotAccurate += OnCutNotDoneAccurately;
         GameEvents.ImageNotSelectedMessage += OnImageNotSelectedMessage;
         GameEvents.ImageSelected += OnAnyImageSelected;
+        GameEvents.BackgroundChangeToolSelected += OnBackGroundChangeToolSelected;
 
     }
 
@@ -42,6 +43,7 @@ public class SideButtonsCanvasController : MonoBehaviour
         GameEvents.CutNotAccurate -= OnCutNotDoneAccurately;
         GameEvents.ImageNotSelectedMessage -= OnImageNotSelectedMessage;
         GameEvents.ImageSelected -= OnAnyImageSelected;
+        GameEvents.BackgroundChangeToolSelected -= OnBackGroundChangeToolSelected;
     }
 
     
@@ -234,4 +236,13 @@ public class SideButtonsCanvasController : MonoBehaviour
     {
         SideButtonOutAnimation(selectImageInstructionGameObject);
     }
+    
+    private void OnBackGroundChangeToolSelected()
+    {
+        SideButtonOutAnimation(cutDoneButton);
+        SideButtonOutAnimation(cutClearButton);
+        SideButtonOutAnimation(cutImageInstructionGameObject);
+    }
+
+   
 }

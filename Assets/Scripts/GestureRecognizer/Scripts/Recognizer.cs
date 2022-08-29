@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -98,6 +99,7 @@ namespace GestureRecognizer
 
             var found = findPattern(normData, normalizeScale);
 
+            
             timer.Stop();
 
 			found.recognitionTime = (float)(timer.ElapsedMilliseconds / 1000.0);
@@ -586,8 +588,19 @@ namespace GestureRecognizer
                 }
             }
             
-            print("vector2 : " + (t > 0.5f ? vs[vs.Count - 1] : vs[0]));
-            return t > 0.5f ? vs[vs.Count - 1] : vs[0];
+           // print("vector2 : " + (t > 0.5f ? vs[vs.Count - 1] : vs[0]));
+
+           try
+           {
+               return t > 0.5f ? vs[vs.Count - 1] : vs[0];
+           }
+           catch (ArgumentOutOfRangeException argumentOutOfRangeException)
+           {
+               
+               print("I catched it");
+               return Vector2.zero;
+           }
+           
         }
 
         private GestureData NormalizeDistribution(GestureData data, int n)

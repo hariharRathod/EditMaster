@@ -1,9 +1,10 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class DragAndDropUIElements : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class DragAndDropUIElements : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler,IPointerUpHandler
 {
 
     private RectTransform _rectTransform;
@@ -12,8 +13,10 @@ public class DragAndDropUIElements : MonoBehaviour, IPointerDownHandler, IBeginD
     
     [SerializeField] private float leftLimit;
     [SerializeField] private float rightLimit;
+    [SerializeField] private float upLimit, downLimit;
 
     private Sprite _imageSprite;
+    private bool isDragging;
 
     private void Start()
     {
@@ -21,9 +24,10 @@ public class DragAndDropUIElements : MonoBehaviour, IPointerDownHandler, IBeginD
         _imageSprite = GetComponent<Image>().sprite;
     }
 
+    
     public void OnPointerDown(PointerEventData eventData)
     {
-
+        
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -35,7 +39,12 @@ public class DragAndDropUIElements : MonoBehaviour, IPointerDownHandler, IBeginD
     {
         print("End drag");
         
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
+        
+        _rectTransform.anchoredPosition = Vector2.zero;
+        
+        //gameObject.SetActive(true);
+        
         
         var ray = InputHandler.mainCamera.ScreenPointToRay(Input.mousePosition);
 
@@ -47,9 +56,11 @@ public class DragAndDropUIElements : MonoBehaviour, IPointerDownHandler, IBeginD
 
         if (!hit.transform.CompareTag("EditableImage")) return;
 
-        if (!hit.transform.TryGetComponent(out ImageEditController imageEditController)) return;
+        if (!hit.transform.TryGetComponent(out ImageEditRefBank refBank)) return;
         
-        imageEditController.ReplaceImage(_imageSprite);
+        if(!refBank.EditController) return;
+        
+        refBank.EditController.ReplaceImage(_imageSprite);
 
 
     }
@@ -76,7 +87,26 @@ public class DragAndDropUIElements : MonoBehaviour, IPointerDownHandler, IBeginD
             _rectTransform.anchoredPosition = previPosition;
             return;
         }
+
+        if (_rectTransform.anchoredPosition.y >= upLimit)
+        {
+            _rectTransform.anchoredPosition = previPosition;
+            return;
+        }
+        
+        if (_rectTransform.anchoredPosition.y <= downLimit)
+        {
+            _rectTransform.anchoredPosition = previPosition;
+            return;
+        }
+        
         
        
+    }
+
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        
     }
 }

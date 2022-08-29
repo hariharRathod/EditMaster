@@ -31,10 +31,12 @@ public class DrawState : InputStateBase
         }
 
         if (!hit.transform.CompareTag("Drawable")) { return;}
-
-        if (!hit.transform.parent.TryGetComponent(out ImageEditController editController)) return;
         
-        if (!editController.IsSelected){ return;}
+        if (!hit.transform.parent.TryGetComponent(out ImageEditRefBank refBank)) return;
+
+        if(!refBank.EditController) return;
+        
+        if (!refBank.EditController.IsSelected){ return;}
         
         _drawMechanic.Draw(hit);
         
