@@ -102,9 +102,12 @@ public class ImageEditController : MonoBehaviour
         if (selectStatus == SelectStatus.NotSelectable) return;
 
         if (!_my.SelectHandler) return;
+        
 
         if (selectedImgTransform == _transform)
         {
+            if(IsSelected) return;
+            
             _my.SelectHandler.OnImageSelected(true);
             IsSelected = true;
             

@@ -125,7 +125,7 @@ public class SideButtonsCanvasController : MonoBehaviour
         SideButtonInAnimation(cutClearButton);
     }
     
-    private void SideButtonInAnimation(GameObject button)
+    public void SideButtonInAnimation(GameObject button)
     {
       
         RectTransform buttonrect = button.GetComponent<RectTransform>();
@@ -141,7 +141,7 @@ public class SideButtonsCanvasController : MonoBehaviour
         
     }
 
-    private void SideButtonOutAnimation(GameObject button)
+    public void SideButtonOutAnimation(GameObject button)
     {
         bool isRightButton;
         RectTransform buttonrect = button.GetComponent<RectTransform>();

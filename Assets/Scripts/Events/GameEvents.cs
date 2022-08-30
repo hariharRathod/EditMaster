@@ -20,6 +20,8 @@ public static partial class GameEvents
 
     public static event Action<int> ActivateNextTool;
 
+    public static event Action<GameObject> PicturePrefabInstantiateDone;
+
 
 
 
@@ -52,6 +54,8 @@ public static partial class GameEvents
     public static void InvokeOnBackgroundChangeToolSelected() => BackgroundChangeToolSelected?.Invoke();
 
     public static void InvokeOnActivateNextTool(int obj) => ActivateNextTool?.Invoke(obj);
+
+    public static void InvokeOnPicturePrefabInstantiateDone(GameObject obj) => PicturePrefabInstantiateDone?.Invoke(obj);
 }
 
 
