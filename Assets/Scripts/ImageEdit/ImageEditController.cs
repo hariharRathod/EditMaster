@@ -46,6 +46,12 @@ public class ImageEditController : MonoBehaviour
         Enable,
         Disable
     }
+    
+    public enum FreeMovableStatus
+    {
+        IsMovable,
+        NotMovable
+    }
 
 
     public SelectStatus selectStatus;
@@ -54,6 +60,7 @@ public class ImageEditController : MonoBehaviour
     public CutStatus cutStatus;
     public ReplaceStatus replaceStatus;
     public CutAccuratelyOnOffStatus cutAccuratelyOnOffStatus;
+    public FreeMovableStatus freeMovableStatus;
 
 
     private bool isSelected;
