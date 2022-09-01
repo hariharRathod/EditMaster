@@ -47,8 +47,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ca322c674ff85141bf470dc5608b9ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasHeadInstruction: 1
+  isTextInstruction: 1
+  isImageInstruction: 0
+  showStepByStepInstructions: 0
+  messageForSelectTool: Select the image to edit/remove.
+  messageForEraserTool: Tap on the image to remove/erase.
+  messageForCutTool: 
+  messageForBackgroundTool: 
+  messageForClothsTool: 
+  messageForHairsTool: 
+  textHeadInstruction: Remove/Erase the person behind girl.
+  imageHeadInstruction: 'Remove/Erase this image '
+  levelType: 0
   listOfSpritesToErase:
   - {fileID: 824340458614559583}
+  eraseParticleEffect: {fileID: 0}
 --- !u!1001 &5719547168036195381
 PrefabInstance:
   m_ObjectHideFlags: 0

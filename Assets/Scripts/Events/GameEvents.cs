@@ -22,6 +22,8 @@ public static partial class GameEvents
 
     public static event Action<GameObject> PicturePrefabInstantiateDone;
 
+    public static event Action ActivateDoneEditingButton;
+
 
 
 
@@ -56,6 +58,8 @@ public static partial class GameEvents
     public static void InvokeOnActivateNextTool(int obj) => ActivateNextTool?.Invoke(obj);
 
     public static void InvokeOnPicturePrefabInstantiateDone(GameObject obj) => PicturePrefabInstantiateDone?.Invoke(obj);
+
+    public static void InvokeOnActivateDoneEditingButton() => ActivateDoneEditingButton?.Invoke();
 }
 
 

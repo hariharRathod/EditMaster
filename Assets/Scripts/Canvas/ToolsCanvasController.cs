@@ -78,6 +78,16 @@ public class ToolsCanvasController : MonoBehaviour
         ColorButtonImage();
 
     }
+    
+    public void OnMoveToolPressed()
+    {
+        currentToolIndex = 6;
+        print("on select pressed");
+        InputHandler.AssignNewState(InputState.Idle);
+        ToolsManager.CurrentToolState = ToolsState.Move;
+        ColorButtonImage();
+        
+    }
 
 
     private void ColorButtonImage()

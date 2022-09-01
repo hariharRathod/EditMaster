@@ -10,6 +10,8 @@ public class GameFlowController : MonoBehaviour
     public static GameStepByStepProgressionController GameStepByStepProgressionController { get; private set; }
 
     public static ToolsCanvasController ToolsCanvasController { get; private set; }
+    
+    
 
     public List<int> ToolsActivationOrder
     {
@@ -17,7 +19,10 @@ public class GameFlowController : MonoBehaviour
         
     }
 
+    public LevelType LevelType => levelType;
+
     [SerializeField] private List<int> toolsActivationOrder;
+    [SerializeField] private LevelType levelType;
     
     
     private void Awake()

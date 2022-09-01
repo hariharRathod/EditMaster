@@ -4,7 +4,7 @@ using GestureRecognizer;
 using UnityEngine;
 
 
-public enum InputState { Idle,Tap,Disabled,Drag,Draw}
+public enum InputState { Idle,Tap,Disabled,Dragmove,Draw}
 
 
 
@@ -16,9 +16,12 @@ public class InputHandler : MonoBehaviour
 	private static readonly IdleState IdleState = new IdleState();
 	
 	private static readonly DisabledState DisabledState =  new DisabledState();
-
-
+	
 	private static readonly TapState TapState = new TapState();
+
+	private static readonly DragMoveState DragMoveState = new DragMoveState();
+	
+	
 
 	public static DrawMechanic DrawMechanic { get; private set; }
 
@@ -88,6 +91,11 @@ public class InputHandler : MonoBehaviour
 		{
 			if(InputExtensions.GetFingerHeld()) return _drawState;
 		}
+
+		if (ToolsManager.CurrentToolState == ToolsState.Move)
+		{
+			if (InputExtensions.GetFingerHeld()) return DragMoveState;
+		}
 		
 		if (InputExtensions.GetFingerUp()) return TapState;
 		
@@ -104,6 +112,7 @@ public class InputHandler : MonoBehaviour
 			InputState.Disabled=>DisabledState,
 			InputState.Tap=> TapState,
 			InputState.Draw=>_drawState,
+			InputState.Dragmove=>DragMoveState,
 			_ => throw new ArgumentOutOfRangeException(nameof(state), state, "aisa kya pass kar diya vrooo tune yahaan")
 		};
 

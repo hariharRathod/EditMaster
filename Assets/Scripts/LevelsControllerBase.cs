@@ -1,5 +1,14 @@
 using UnityEngine;
 
+
+public enum LevelType
+{
+    MagicEraserType,
+    CutBackgroundType,
+    CutClothsType,
+    CutHairsType
+}
+
 public class LevelsControllerBase : MonoBehaviour
 {
     [SerializeField] private bool hasHeadInstruction, isTextInstruction, isImageInstruction,showStepByStepInstructions;
@@ -10,16 +19,6 @@ public class LevelsControllerBase : MonoBehaviour
 
     [Space(40)] [Multiline] [SerializeField] private string textHeadInstruction;
     [Space(40)] [Multiline] [SerializeField] private string imageHeadInstruction;
-
-
-    [System.Serializable]
-    public enum LevelType
-    {
-        MagicEraserType,
-        CutBackgroundType,
-        CutClothsType,
-        CutHairsType
-    }
 
     [Space(40)]
     [SerializeField] private LevelType levelType;

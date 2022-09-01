@@ -50,7 +50,12 @@ public class GameStepByStepProgressionController : MonoBehaviour
             if (GameFlowController.only.ToolsActivationOrder[i] != index) continue;
 
             i = i + 1;
-            if (i >= GameFlowController.only.ToolsActivationOrder.Count) return;
+            if (i >= GameFlowController.only.ToolsActivationOrder.Count)
+            {
+                GameEvents.InvokeOnActivateDoneEditingButton();
+                print("Invoke activate done");
+                return;
+            }
             
             nextToolIndex = GameFlowController.only.ToolsActivationOrder[i];
 

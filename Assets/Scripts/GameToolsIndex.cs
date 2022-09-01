@@ -8,5 +8,6 @@ public static class GameToolsIndex
     public const int BackgroundChangeToolIndex = 3;
     public const int ClothsChangeToolsIndex = 4;
     public const int HairChangeToolsIndex = 5;
-    
+    public const int MoveToolIndex = 6;
+
 }

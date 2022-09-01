@@ -7,16 +7,21 @@ using UnityEngine.UI;
 
 public class SideButtonsCanvasController : MonoBehaviour
 {
-    [SerializeField] private GameObject cutDoneButton, cutClearButton, imageNotSelectedMessageGameObject,cutDoneMessageGameObject,cutNotDoneMessageGameObject,selectImageInstructionGameObject,cutImageInstructionGameObject;
+    [SerializeField] private GameObject cutDoneButton, cutClearButton, imageNotSelectedMessageGameObject,cutDoneMessageGameObject,cutNotDoneMessageGameObject,selectImageInstructionGameObject,cutImageInstructionGameObject,eraserSideInstructionGameObject;
 
 
-    [Space(5),SerializeField] private List<GameObject> sideButtonsList;
+    [Space(15),SerializeField] private List<GameObject> sideButtonsList;
 
-    [Space(5), SerializeField] private float buttonsInDuration, buttonsOutDuration,rightButtonsOutOffset,leftButtonsOutOffset;
+    [Space(15), SerializeField] private float buttonsInDuration, buttonsOutDuration,rightButtonsOutOffset,leftButtonsOutOffset;
 
+    [Header("DoneEditingButtons")] [Space(30), SerializeField] private GameObject eraserDoneEditingButton;
+    
+    
     private Dictionary<string, Vector3> buttonsDict;
 
     private DrawMechanic drawMechanic;
+
+    public GameObject EraserDoneEditingButton => eraserDoneEditingButton;
 
 
     private void OnEnable()
@@ -118,13 +123,6 @@ public class SideButtonsCanvasController : MonoBehaviour
     }
 
 
-    private void OnCutToolSelected()
-    {
-        SideButtonInAnimation(cutImageInstructionGameObject);
-        SideButtonInAnimation(cutDoneButton);
-        SideButtonInAnimation(cutClearButton);
-    }
-    
     public void SideButtonInAnimation(GameObject button)
     {
       
@@ -183,15 +181,41 @@ public class SideButtonsCanvasController : MonoBehaviour
         }
     }
     
-    private void OnEraseToolSelected()
-    {
-       SideButtonOutAnimation(cutDoneButton);
-       SideButtonOutAnimation(cutClearButton);
-       SideButtonOutAnimation(cutImageInstructionGameObject);
-    }
+   
 
     private void OnSelectToolSelected()
     {
+        SideButtonOutAnimation(eraserSideInstructionGameObject);
+        SideButtonOutAnimation(cutDoneButton);
+        SideButtonOutAnimation(cutClearButton);
+        SideButtonOutAnimation(cutImageInstructionGameObject);
+        
+        
+    }
+    
+    private void OnEraseToolSelected()
+    {
+        SideButtonOutAnimation(cutDoneButton);
+        SideButtonOutAnimation(cutClearButton);
+        SideButtonOutAnimation(cutImageInstructionGameObject);
+        SideButtonOutAnimation(selectImageInstructionGameObject);
+       
+        SideButtonInAnimation(eraserSideInstructionGameObject);
+    }
+    
+    private void OnCutToolSelected()
+    {
+        SideButtonOutAnimation(eraserSideInstructionGameObject);
+        SideButtonOutAnimation(selectImageInstructionGameObject);
+        SideButtonInAnimation(cutImageInstructionGameObject);
+        SideButtonInAnimation(cutDoneButton);
+        SideButtonInAnimation(cutClearButton);
+    }
+    
+    private void OnBackGroundChangeToolSelected()
+    {
+        SideButtonOutAnimation(selectImageInstructionGameObject);
+        SideButtonOutAnimation(eraserSideInstructionGameObject);
         SideButtonOutAnimation(cutDoneButton);
         SideButtonOutAnimation(cutClearButton);
         SideButtonOutAnimation(cutImageInstructionGameObject);
@@ -234,15 +258,15 @@ public class SideButtonsCanvasController : MonoBehaviour
     
     private void OnAnyImageSelected(Transform obj)
     {
-        SideButtonOutAnimation(selectImageInstructionGameObject);
-    }
-    
-    private void OnBackGroundChangeToolSelected()
-    {
-        SideButtonOutAnimation(cutDoneButton);
-        SideButtonOutAnimation(cutClearButton);
-        SideButtonOutAnimation(cutImageInstructionGameObject);
+        //SideButtonOutAnimation(selectImageInstructionGameObject);
     }
 
-   
+
+    public void ActivateEraserTypeDoneEditingButton()
+    {
+        SideButtonInAnimation(eraserDoneEditingButton);
+    }
+
+
+
 }

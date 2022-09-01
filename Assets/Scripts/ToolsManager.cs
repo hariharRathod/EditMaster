@@ -4,10 +4,10 @@ public enum ToolsState
     Select,
     Erase,
     Cut,
-    Patch,
     BackgroundChange,
     ClothsChange,
     HairChange,
+    Move,
     none
 }
 
