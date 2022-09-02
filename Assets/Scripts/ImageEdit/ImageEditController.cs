@@ -10,6 +10,8 @@ public class ImageEditController : MonoBehaviour
 
     [SerializeField] private GameObject myDrawableArea;
     [SerializeField] private GesturePattern myGesturePattern;
+
+    private Vector3 _initScale;
     
     public enum SelectStatus
     {
@@ -53,6 +55,12 @@ public class ImageEditController : MonoBehaviour
         NotMovable
     }
 
+    public enum ScaleStatus
+    {
+        IsScaleable,
+        NotScalable
+    }
+
 
     public SelectStatus selectStatus;
     public EraseStatus eraseStatus;
@@ -61,6 +69,7 @@ public class ImageEditController : MonoBehaviour
     public ReplaceStatus replaceStatus;
     public CutAccuratelyOnOffStatus cutAccuratelyOnOffStatus;
     public FreeMovableStatus freeMovableStatus;
+    public ScaleStatus scaleStatus;
 
 
     private bool isSelected;
@@ -74,6 +83,8 @@ public class ImageEditController : MonoBehaviour
         set => isSelected = value;
     }
 
+    public Vector3 InitScale => _initScale;
+
 
     private void OnEnable()
     {
@@ -82,6 +93,7 @@ public class ImageEditController : MonoBehaviour
         GameEvents.CutToolSelected += OnCutToolSelected;
         GameEvents.SelectToolSelected += OnSelectToolSelected;
         GameEvents.CutDoneAccurately += OnCutDoneAccurately;
+        GameEvents.ScaleToolSelected += OnScaleToolSeleted;
     }
 
     private void OnDisable()
@@ -91,12 +103,16 @@ public class ImageEditController : MonoBehaviour
         GameEvents.CutToolSelected -= OnCutToolSelected;
         GameEvents.SelectToolSelected -= OnSelectToolSelected;
         GameEvents.CutDoneAccurately -= OnCutDoneAccurately;
+        GameEvents.ScaleToolSelected -= OnScaleToolSeleted;
     }
 
     private void Start()
     {
         _transform = transform;
         _my = GetComponent<ImageEditRefBank>();
+        _initScale = transform.localScale;
+        
+        
         if(myDrawableArea)
             myDrawableArea.SetActive(false);
 
@@ -203,5 +219,14 @@ public class ImageEditController : MonoBehaviour
 
         print("change sprite");
         imageSprite.sprite = sprite;
+    }
+    
+    private void OnScaleToolSeleted()
+    {
+       if(!IsSelected) return;
+       
+       _my.ScaleObjectHandler.EnableScaleFrame();
+       
+       
     }
 }

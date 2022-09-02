@@ -9,6 +9,8 @@ public class ImageEditRefBank : MonoBehaviour
 
     public ImageEraseHandler EraseHandler { get; private set; }
 
+    public ImageScaleObjectHandler ScaleObjectHandler { get; private set; }
+
 
     private void Start()
     {
@@ -20,6 +22,9 @@ public class ImageEditRefBank : MonoBehaviour
 
         if (transform.TryGetComponent(out ImageEraseHandler eraseHandler))
             EraseHandler = eraseHandler;
+
+        if (transform.TryGetComponent(out ImageScaleObjectHandler scaleHandler))
+            ScaleObjectHandler = scaleHandler;
 
     }
 }

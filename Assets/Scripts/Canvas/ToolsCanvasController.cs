@@ -85,8 +85,18 @@ public class ToolsCanvasController : MonoBehaviour
         print("on select pressed");
         InputHandler.AssignNewState(InputState.Idle);
         ToolsManager.CurrentToolState = ToolsState.Move;
+        GameEvents.InvokeOnMoveToolSelected();
         ColorButtonImage();
         
+    }
+    
+    public void OnScaleToolPressed()
+    {
+        currentToolIndex = 7;
+        InputHandler.AssignNewState(InputState.Idle);
+        ToolsManager.CurrentToolState = ToolsState.Scale;
+        GameEvents.InvokeOnScaleToolSelected();
+        ColorButtonImage();
     }
 
 

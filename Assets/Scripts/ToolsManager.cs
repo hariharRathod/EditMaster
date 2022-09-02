@@ -8,6 +8,7 @@ public enum ToolsState
     ClothsChange,
     HairChange,
     Move,
+    Scale,
     none
 }
 

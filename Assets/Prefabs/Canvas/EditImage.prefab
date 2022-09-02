@@ -143,10 +143,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PicHolderParis
       objectReference: {fileID: 0}
-    - target: {fileID: 1225441209226252643, guid: fb71c8049e8154448ba58fde6641bbf8, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1225441209226252652, guid: fb71c8049e8154448ba58fde6641bbf8, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -245,12 +241,108 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5514937510964264349, guid: fb71c8049e8154448ba58fde6641bbf8, type: 3}
+    - {fileID: 5330600355732435795, guid: fb71c8049e8154448ba58fde6641bbf8, type: 3}
+    - {fileID: 1729664010992400454, guid: fb71c8049e8154448ba58fde6641bbf8, type: 3}
+    - {fileID: 6885364907895274955, guid: fb71c8049e8154448ba58fde6641bbf8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: fb71c8049e8154448ba58fde6641bbf8, type: 3}
+--- !u!1 &513000152702282773 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1984561241904110258, guid: fb71c8049e8154448ba58fde6641bbf8, type: 3}
+  m_PrefabInstance: {fileID: 2059298438565705383}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &1283993604226470770
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 513000152702282773}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5.12, y: 5.12}
+    newSize: {x: 5.12, y: 5.12}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 5.12, y: 5.12}
+  m_EdgeRadius: 0
 --- !u!4 &978896634248685515 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1225441209226252652, guid: fb71c8049e8154448ba58fde6641bbf8, type: 3}
   m_PrefabInstance: {fileID: 2059298438565705383}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2917409756942888538 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3812474876618299645, guid: fb71c8049e8154448ba58fde6641bbf8, type: 3}
+  m_PrefabInstance: {fileID: 2059298438565705383}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &5559650005231898964
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2917409756942888538}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5.12, y: 5.12}
+    newSize: {x: 5.12, y: 5.12}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 5.12, y: 5.12}
+  m_EdgeRadius: 0
+--- !u!1 &6952308198814405569 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9002579640034256230, guid: fb71c8049e8154448ba58fde6641bbf8, type: 3}
+  m_PrefabInstance: {fileID: 2059298438565705383}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &5492910386980186080
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6952308198814405569}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5.12, y: 5.12}
+    newSize: {x: 5.12, y: 5.12}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 5.12, y: 5.12}
+  m_EdgeRadius: 0
 --- !u!1 &8473234265411718364 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7566857367060560507, guid: fb71c8049e8154448ba58fde6641bbf8, type: 3}

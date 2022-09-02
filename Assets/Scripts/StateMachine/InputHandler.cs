@@ -4,7 +4,7 @@ using GestureRecognizer;
 using UnityEngine;
 
 
-public enum InputState { Idle,Tap,Disabled,Dragmove,Draw}
+public enum InputState { Idle,Tap,Disabled,Dragmove,Draw,Scale}
 
 
 
@@ -20,6 +20,8 @@ public class InputHandler : MonoBehaviour
 	private static readonly TapState TapState = new TapState();
 
 	private static readonly DragMoveState DragMoveState = new DragMoveState();
+
+	private static readonly ScaleState ScaleState = new ScaleState();
 	
 	
 
@@ -96,7 +98,13 @@ public class InputHandler : MonoBehaviour
 		{
 			if (InputExtensions.GetFingerHeld()) return DragMoveState;
 		}
-		
+
+		if (ToolsManager.CurrentToolState == ToolsState.Scale)
+		{
+			if (InputExtensions.GetFingerHeld()) return ScaleState;
+		}
+
+
 		if (InputExtensions.GetFingerUp()) return TapState;
 		
 		return _currentInputState;

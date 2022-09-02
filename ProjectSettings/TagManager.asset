@@ -8,6 +8,7 @@ TagManager:
   - Drawable
   - EditorCanvas
   - DragMovableArea
+  - ScaleableDots
   layers:
   - Default
   - TransparentFX

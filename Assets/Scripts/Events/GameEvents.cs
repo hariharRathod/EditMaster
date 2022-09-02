@@ -10,7 +10,7 @@ public static partial class GameEvents
 
     public static event Action<Transform> ImageSelected,EraserUsed;
 
-    public static event Action CutToolSelected,SelectToolSelected,EraserToolSelected,BackgroundChangeToolSelected;
+    public static event Action CutToolSelected,SelectToolSelected,EraserToolSelected,BackgroundChangeToolSelected,MoveToolSelected,ScaleToolSelected;
 
     public static event Action<Transform, GesturePattern> MyDrawableAreaIsOn;
 
@@ -60,6 +60,10 @@ public static partial class GameEvents
     public static void InvokeOnPicturePrefabInstantiateDone(GameObject obj) => PicturePrefabInstantiateDone?.Invoke(obj);
 
     public static void InvokeOnActivateDoneEditingButton() => ActivateDoneEditingButton?.Invoke();
+
+    public static void InvokeOnMoveToolSelected() => MoveToolSelected?.Invoke();
+
+    public static void InvokeOnScaleToolSelected() => ScaleToolSelected?.Invoke();
 }
 
 
