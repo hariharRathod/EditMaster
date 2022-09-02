@@ -8,13 +8,16 @@ using UnityEngine.UI;
 public class SideButtonsCanvasController : MonoBehaviour
 {
     [SerializeField] private GameObject cutDoneButton, cutClearButton, imageNotSelectedMessageGameObject,cutDoneMessageGameObject,cutNotDoneMessageGameObject,selectImageInstructionGameObject,cutImageInstructionGameObject,eraserSideInstructionGameObject;
-
+    [SerializeField] private bool showSideMessages;
 
     [Space(15),SerializeField] private List<GameObject> sideButtonsList;
 
     [Space(15), SerializeField] private float buttonsInDuration, buttonsOutDuration,rightButtonsOutOffset,leftButtonsOutOffset;
 
-    [Header("DoneEditingButtons")] [Space(30), SerializeField] private GameObject eraserDoneEditingButton;
+    [Header("DoneEditingButtons")] 
+    [Space(30)] 
+    [SerializeField] private GameObject eraserDoneEditingButton;
+    [SerializeField] private GameObject moveAndEraseDoneEditingButton;
     
     
     private Dictionary<string, Vector3> buttonsDict;
@@ -265,6 +268,11 @@ public class SideButtonsCanvasController : MonoBehaviour
     public void ActivateEraserTypeDoneEditingButton()
     {
         SideButtonInAnimation(eraserDoneEditingButton);
+    }
+
+    public void ActivateMoveAndEraseTypeDoneEditingButton()
+    {
+        SideButtonInAnimation(moveAndEraseDoneEditingButton);
     }
 
 

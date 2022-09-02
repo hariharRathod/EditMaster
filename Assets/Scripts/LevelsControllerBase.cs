@@ -6,7 +6,8 @@ public enum LevelType
     MagicEraserType,
     CutBackgroundType,
     CutClothsType,
-    CutHairsType
+    CutHairsType,
+    MoveAndErase
 }
 
 public class LevelsControllerBase : MonoBehaviour
