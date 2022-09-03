@@ -8,6 +8,7 @@ public class ToolsCanvasController : MonoBehaviour
 
     [SerializeField] private List<Image> buttonImageList;
     [SerializeField] private List<GameObject> toolsButtonsList;
+    [SerializeField] private GameObject toolsPanelParent;
 
     private int currentToolIndex;
 
@@ -23,10 +24,15 @@ public class ToolsCanvasController : MonoBehaviour
        
     }
 
+    private void Awake()
+    {
+        DeactivateAllToolsButtons();
+    }
+
 
     private void Start()
     {
-        DeactivateAllToolsButtons();
+       SetToolsButtonsOrder();
     }
 
     private void DeactivateAllToolsButtons()
@@ -124,8 +130,17 @@ public class ToolsCanvasController : MonoBehaviour
 
     public void EnableToolButton(int toolIndex)
     {
-        
+        print("Enable index: " + toolIndex);
         toolsButtonsList[toolIndex].SetActive(true);
+    }
+
+    private void SetToolsButtonsOrder()
+    {
+        for (int i = 0; i < GameFlowController.only.ToolsActivationOrder.Count; i++)
+        {
+            int toolIndex = GameFlowController.only.ToolsActivationOrder[i];
+            toolsButtonsList[toolIndex].transform.SetSiblingIndex(i);
+        }
     }
 
 

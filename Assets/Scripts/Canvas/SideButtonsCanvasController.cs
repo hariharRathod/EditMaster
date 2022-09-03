@@ -7,7 +7,11 @@ using UnityEngine.UI;
 
 public class SideButtonsCanvasController : MonoBehaviour
 {
-    [SerializeField] private GameObject cutDoneButton, cutClearButton, imageNotSelectedMessageGameObject,cutDoneMessageGameObject,cutNotDoneMessageGameObject,selectImageInstructionGameObject,cutImageInstructionGameObject,eraserSideInstructionGameObject;
+    [SerializeField] private GameObject cutDoneButton, cutClearButton, imageNotSelectedMessageGameObject,
+        cutDoneMessageGameObject,cutNotDoneMessageGameObject,selectImageInstructionGameObject,
+        cutImageInstructionGameObject,eraserSideInstructionGameObject,moveSideToolInstructionGameObject,scaleSideToolInstructionGameObject;
+        
+        
     [SerializeField] private bool showSideMessages;
 
     [Space(15),SerializeField] private List<GameObject> sideButtonsList;
@@ -38,6 +42,8 @@ public class SideButtonsCanvasController : MonoBehaviour
         GameEvents.ImageNotSelectedMessage += OnImageNotSelectedMessage;
         GameEvents.ImageSelected += OnAnyImageSelected;
         GameEvents.BackgroundChangeToolSelected += OnBackGroundChangeToolSelected;
+        GameEvents.ScaleToolSelected += OnScaleToolSelected;
+        GameEvents.MoveToolSelected += OnMoveToolSelected;
 
     }
 
@@ -52,9 +58,13 @@ public class SideButtonsCanvasController : MonoBehaviour
         GameEvents.ImageNotSelectedMessage -= OnImageNotSelectedMessage;
         GameEvents.ImageSelected -= OnAnyImageSelected;
         GameEvents.BackgroundChangeToolSelected -= OnBackGroundChangeToolSelected;
+        GameEvents.ScaleToolSelected -= OnScaleToolSelected;
+        GameEvents.MoveToolSelected -= OnMoveToolSelected;
     }
 
     
+
+
     private void Start()
     {
         
@@ -192,7 +202,10 @@ public class SideButtonsCanvasController : MonoBehaviour
         SideButtonOutAnimation(cutDoneButton);
         SideButtonOutAnimation(cutClearButton);
         SideButtonOutAnimation(cutImageInstructionGameObject);
+        SideButtonOutAnimation(moveSideToolInstructionGameObject);
+        SideButtonOutAnimation(scaleSideToolInstructionGameObject);
         
+        SideButtonInAnimation(selectImageInstructionGameObject);
         
     }
     
@@ -202,6 +215,8 @@ public class SideButtonsCanvasController : MonoBehaviour
         SideButtonOutAnimation(cutClearButton);
         SideButtonOutAnimation(cutImageInstructionGameObject);
         SideButtonOutAnimation(selectImageInstructionGameObject);
+        SideButtonOutAnimation(moveSideToolInstructionGameObject);
+        SideButtonOutAnimation(scaleSideToolInstructionGameObject);
        
         SideButtonInAnimation(eraserSideInstructionGameObject);
     }
@@ -210,6 +225,8 @@ public class SideButtonsCanvasController : MonoBehaviour
     {
         SideButtonOutAnimation(eraserSideInstructionGameObject);
         SideButtonOutAnimation(selectImageInstructionGameObject);
+        SideButtonOutAnimation(moveSideToolInstructionGameObject);
+        SideButtonOutAnimation(scaleSideToolInstructionGameObject);
         SideButtonInAnimation(cutImageInstructionGameObject);
         SideButtonInAnimation(cutDoneButton);
         SideButtonInAnimation(cutClearButton);
@@ -219,9 +236,31 @@ public class SideButtonsCanvasController : MonoBehaviour
     {
         SideButtonOutAnimation(selectImageInstructionGameObject);
         SideButtonOutAnimation(eraserSideInstructionGameObject);
+        SideButtonOutAnimation(moveSideToolInstructionGameObject);
+        SideButtonOutAnimation(scaleSideToolInstructionGameObject);
         SideButtonOutAnimation(cutDoneButton);
         SideButtonOutAnimation(cutClearButton);
         SideButtonOutAnimation(cutImageInstructionGameObject);
+    }
+    
+    private void OnScaleToolSelected()
+    {
+        SideButtonOutAnimation(selectImageInstructionGameObject);
+        SideButtonOutAnimation(eraserSideInstructionGameObject);
+        SideButtonOutAnimation(cutImageInstructionGameObject);
+        SideButtonOutAnimation(moveSideToolInstructionGameObject);
+       
+        SideButtonInAnimation(scaleSideToolInstructionGameObject);
+    }
+    
+    private void OnMoveToolSelected()
+    {
+        SideButtonOutAnimation(selectImageInstructionGameObject);
+        SideButtonOutAnimation(eraserSideInstructionGameObject);
+        SideButtonOutAnimation(cutImageInstructionGameObject);
+        SideButtonOutAnimation(scaleSideToolInstructionGameObject);
+        
+        SideButtonInAnimation(moveSideToolInstructionGameObject);
     }
     
     private void OnCameraZoomCompleted()
@@ -274,6 +313,9 @@ public class SideButtonsCanvasController : MonoBehaviour
     {
         SideButtonInAnimation(moveAndEraseDoneEditingButton);
     }
+    
+    
+
 
 
 

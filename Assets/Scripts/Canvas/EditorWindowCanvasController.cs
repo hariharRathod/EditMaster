@@ -7,6 +7,8 @@ public class EditorWindowCanvasController : MonoBehaviour
     [SerializeField] private float editorPanelInDuration;
     [SerializeField] private Ease editorPanelInEase;
 
+    [SerializeField] private GameObject levelInstruction;
+    
     private void OnEnable()
     {
         GameEvents.CameraZoomActionCompleted += OnCameraZoomActionCompleted;
@@ -47,5 +49,10 @@ public class EditorWindowCanvasController : MonoBehaviour
         //editorWindowPanelRect.DOAnchorPos(Vector2.zero, editorPanelInDuration).SetEase(editorPanelInEase);
         editorWindowPanelRect.transform.DOScale(Vector3.one, editorPanelInDuration).SetEase(editorPanelInEase);
     }
-    
+
+    private void DisableLevelInstruction()
+    {
+        levelInstruction.SetActive(false);
+    }
+
 }

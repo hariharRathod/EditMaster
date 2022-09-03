@@ -5,15 +5,15 @@ public class ImageEraseHandler : MonoBehaviour
 {
     private ImageEditRefBank _my;
 
-    private MagicEraserLevelController _eraserLevelController;
+    private EditCheckController _editCheckController;
 
     private void Start()
     {
         _my = GetComponent<ImageEditRefBank>();
         
-        if(!transform.parent.TryGetComponent(out MagicEraserLevelController eraserLevelController)) return;
+        if(!transform.parent.TryGetComponent(out EditCheckController editCheckController)) return;
 
-        _eraserLevelController = eraserLevelController;
+        _editCheckController = editCheckController;
     }
 
     
@@ -23,9 +23,9 @@ public class ImageEraseHandler : MonoBehaviour
    {
         this.gameObject.SetActive(false);
         
-        if(!_eraserLevelController) return;
+        if(!_editCheckController) return;
         
-        _eraserLevelController.AddErasedImages(_my);
+        _editCheckController.AddErasedImages(_my);
         
         
    }

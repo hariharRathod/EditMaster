@@ -9,6 +9,8 @@ public class ScaleState : InputStateBase
 
     private void CalculateReferenceValue()
     {
+       
+        
         var ray = InputHandler.mainCamera.ScreenPointToRay(InputExtensions.GetInputPosition());
         var hit = Physics2D.Raycast(ray.origin, ray.direction, 50f);
         
@@ -36,7 +38,7 @@ public class ScaleState : InputStateBase
 
     }
     
-    private void CalculateReferenceScaledValue()
+    private void CalculateReferenceScaledValue(Vector3 hitpos)
     {
         var ray = InputHandler.mainCamera.ScreenPointToRay(InputExtensions.GetInputPosition());
         var hit = Physics2D.Raycast(ray.origin, ray.direction, 50f);
@@ -47,12 +49,11 @@ public class ScaleState : InputStateBase
         
         if(!hit.transform.parent.parent.TryGetComponent(out ImageEditController editController)) return;
 
-        var vecDir = editController.transform.position - hit.transform.position;
+        var vecDir = editController.transform.position - hitpos;
         var mag = vecDir.magnitude;
 
         referenceScaledValue = mag;
         
-        AssignNewReferenceValue();
 
     }
 
@@ -63,34 +64,46 @@ public class ScaleState : InputStateBase
 
     public override void OnEnter()
     {
-        print("scale state on enter");
+        
         CalculateReferenceValue();
     }
 
 
     public override void Execute()
     {
+
         if (InputExtensions.GetFingerUp())
         {
             InputHandler.AssignNewState(InputState.Idle);
-            
+            GameFlowController.GameStepByStepProgressionController.ToolTaskCompleted(GameToolsIndex.ScaleToolIndex);
         }
+        
+        var ray = InputHandler.mainCamera.ScreenPointToRay(InputExtensions.GetInputPosition());
+        var hit = Physics2D.Raycast(ray.origin, ray.direction, 50f);
 
+        if (!hit.collider) return;
 
+        if (!hit.transform.CompareTag("ScaleableDots")) return;
+
+        Vector3 hitPos = new Vector3(hit.point.x,hit.point.y,hit.transform.position.z);
+        
+        
         if(!_editController) return;
 
-        if (InputExtensions.GetInputDelta().magnitude < 0.8f) return ;
+        if (InputExtensions.GetInputDelta().magnitude < 0.1f) return;
+        
+        CalculateReferenceScaledValue(hitPos);
 
         var x = referenceScaledValue / referenceValue;
         Vector3 scale = _editController.transform.localScale;
         scale *= x;
         _editController.transform.localScale = scale;
         
+        AssignNewReferenceValue();
+        
         if(_editController.transform.localScale.x < 1)
             _editController.transform.localScale = Vector3.one;
-        
-        CalculateReferenceScaledValue();
-        
+
     }
 
     public override void OnExit()
