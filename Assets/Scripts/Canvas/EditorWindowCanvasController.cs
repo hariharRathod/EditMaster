@@ -7,21 +7,23 @@ public class EditorWindowCanvasController : MonoBehaviour
     [SerializeField] private float editorPanelInDuration;
     [SerializeField] private Ease editorPanelInEase;
 
-    [SerializeField] private GameObject levelInstruction;
+    [SerializeField] private GameObject levelInstruction,footerPanel;
     
     private void OnEnable()
     {
         GameEvents.CameraZoomActionCompleted += OnCameraZoomActionCompleted;
+        GameEvents.EditCorrect += OnEditCorrect;
+        GameEvents.EditIncorrect += OnEditIncorrect;
     }
 
     private void OnDisable()
     {
         GameEvents.CameraZoomActionCompleted -= OnCameraZoomActionCompleted;
+        GameEvents.EditCorrect -= OnEditCorrect;
+        GameEvents.EditIncorrect -= OnEditIncorrect;
     }
 
     
-
-
     private void Start()
     {
        SetInitalEditorPanelScale();
@@ -54,5 +56,24 @@ public class EditorWindowCanvasController : MonoBehaviour
     {
         levelInstruction.SetActive(false);
     }
+
+    private void DisableFooterPanel()
+    {
+        footerPanel.SetActive(false);
+    }
+
+    private void OnEditCorrect()
+    {
+       DisableLevelInstruction();
+       DisableFooterPanel();
+    }
+
+    private void OnEditIncorrect()
+    {
+        DisableLevelInstruction();
+        DisableFooterPanel();
+    }
+    
+    
 
 }

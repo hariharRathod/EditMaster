@@ -21,7 +21,10 @@ public class SideButtonsCanvasController : MonoBehaviour
     [Header("DoneEditingButtons")] 
     [Space(30)] 
     [SerializeField] private GameObject eraserDoneEditingButton;
-    [SerializeField] private GameObject moveAndEraseDoneEditingButton;
+    
+    [Header("ExportButton")] 
+    [Space(30)] 
+    [SerializeField] private GameObject exportButton;
     
     
     private Dictionary<string, Vector3> buttonsDict;
@@ -44,6 +47,8 @@ public class SideButtonsCanvasController : MonoBehaviour
         GameEvents.BackgroundChangeToolSelected += OnBackGroundChangeToolSelected;
         GameEvents.ScaleToolSelected += OnScaleToolSelected;
         GameEvents.MoveToolSelected += OnMoveToolSelected;
+        GameEvents.EditCorrect += OnEditCorrect;
+        GameEvents.EditIncorrect += OnEditIncorrect;
 
     }
 
@@ -60,11 +65,12 @@ public class SideButtonsCanvasController : MonoBehaviour
         GameEvents.BackgroundChangeToolSelected -= OnBackGroundChangeToolSelected;
         GameEvents.ScaleToolSelected -= OnScaleToolSelected;
         GameEvents.MoveToolSelected -= OnMoveToolSelected;
+        GameEvents.EditCorrect -= OnEditCorrect;
+        GameEvents.EditIncorrect -= OnEditIncorrect;
+
     }
 
     
-
-
     private void Start()
     {
         
@@ -309,14 +315,26 @@ public class SideButtonsCanvasController : MonoBehaviour
         SideButtonInAnimation(eraserDoneEditingButton);
     }
 
-    public void ActivateMoveAndEraseTypeDoneEditingButton()
+    public void ActivateExportButton()
     {
-        SideButtonInAnimation(moveAndEraseDoneEditingButton);
+        SideButtonInAnimation(exportButton);
+    }
+
+
+    public void SendOutExportButton()
+    {
+        SideButtonOutAnimation(exportButton);
+    }
+
+    private void OnEditIncorrect()
+    {
+       SendAllSideButtonsOut();
+    }
+
+    private void OnEditCorrect()
+    {
+       SendAllSideButtonsOut();
     }
     
     
-
-
-
-
 }

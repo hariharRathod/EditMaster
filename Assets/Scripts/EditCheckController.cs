@@ -32,6 +32,7 @@ public class EditCheckController : MonoBehaviour
         {
             //game win
             print("game win");
+            GameEvents.InvokeOnEditCorrect();
             return;
         }
 
@@ -43,11 +44,13 @@ public class EditCheckController : MonoBehaviour
             {
                 //game lose
                 print("game lost");
+                GameEvents.InvokeOnEditIncorrect();
                 return;
             }
         }
         
         //game win
+        GameEvents.InvokeOnEditCorrect();
         print("game win");
     }
 

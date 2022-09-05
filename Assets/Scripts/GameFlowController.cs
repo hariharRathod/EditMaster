@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
@@ -35,12 +36,36 @@ public class GameFlowController : MonoBehaviour
         
         DOTween.KillAll();
     }
+
+    private void OnEnable()
+    {
+        GameEvents.EditCorrect += OnEditCorrect;
+        GameEvents.EditIncorrect += OnEditIncorrect;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.EditCorrect -= OnEditCorrect;
+        GameEvents.EditIncorrect -= OnEditIncorrect;
+    }
+
     
+
     void Start()
     {
         ToolsManager.CurrentToolState = ToolsState.none;
 
         ToolsCanvasController.EnableToolButton(GameToolsIndex.SelectToolIndex);
+    }
+    
+    private void OnEditIncorrect()
+    {
+        DOVirtual.DelayedCall(0.2f, () => GameEvents.InvokeOnGameLose());
+    }
+
+    private void OnEditCorrect()
+    {
+        DOVirtual.DelayedCall(1.5f, () => GameEvents.InvokeOnGameWin());
     }
 
     

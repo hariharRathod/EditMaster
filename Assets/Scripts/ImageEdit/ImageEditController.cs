@@ -94,6 +94,8 @@ public class ImageEditController : MonoBehaviour
         GameEvents.SelectToolSelected += OnSelectToolSelected;
         GameEvents.CutDoneAccurately += OnCutDoneAccurately;
         GameEvents.ScaleToolSelected += OnScaleToolSeleted;
+        GameEvents.EditCorrect += OnEditCorrect;
+        GameEvents.EditIncorrect += OnEditIncorrect;
     }
 
     private void OnDisable()
@@ -104,7 +106,11 @@ public class ImageEditController : MonoBehaviour
         GameEvents.SelectToolSelected -= OnSelectToolSelected;
         GameEvents.CutDoneAccurately -= OnCutDoneAccurately;
         GameEvents.ScaleToolSelected -= OnScaleToolSeleted;
+        GameEvents.EditCorrect -= OnEditCorrect;
+        GameEvents.EditIncorrect -= OnEditIncorrect;
     }
+
+   
 
     private void Start()
     {
@@ -229,4 +235,17 @@ public class ImageEditController : MonoBehaviour
        
        
     }
+    
+    private void OnEditIncorrect()
+    {
+        _my.SelectHandler.DisableOutLine();
+        _my.ScaleObjectHandler.DisableScaleFrame();
+    }
+
+    private void OnEditCorrect()
+    {
+        _my.SelectHandler.DisableOutLine();
+        _my.ScaleObjectHandler.DisableScaleFrame();
+    }
+    
 }

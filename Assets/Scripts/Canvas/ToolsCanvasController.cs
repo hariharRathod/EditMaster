@@ -15,15 +15,20 @@ public class ToolsCanvasController : MonoBehaviour
     private void OnEnable()
     {
         GameEvents.CutDoneAccurately += OnCutDoneAccurately;
-       
+        GameEvents.EditCorrect += OnEditCorrect;
+        GameEvents.EditIncorrect += OnEditInCorrect;
+
     }
 
     private void OnDisable()
     {
         GameEvents.CutDoneAccurately -= OnCutDoneAccurately;
+        GameEvents.EditCorrect -= OnEditCorrect;
+        GameEvents.EditIncorrect -= OnEditInCorrect;
        
     }
 
+    
     private void Awake()
     {
         DeactivateAllToolsButtons();
@@ -53,6 +58,8 @@ public class ToolsCanvasController : MonoBehaviour
         GameEvents.InvokeOnSelectToolSelected();
         ColorButtonImage();
         
+        if(AudioManager.instance)
+            AudioManager.instance.Play("ButtonPress");
                 
         
     }
@@ -64,6 +71,9 @@ public class ToolsCanvasController : MonoBehaviour
         ToolsManager.CurrentToolState = ToolsState.Erase;
         GameEvents.InvokeOnEraserToolSelected();
         ColorButtonImage();
+        
+        if(AudioManager.instance)
+            AudioManager.instance.Play("ButtonPress");
     }
 
     public void OnCutToolPressed()
@@ -73,6 +83,9 @@ public class ToolsCanvasController : MonoBehaviour
         ToolsManager.CurrentToolState = ToolsState.Cut;
         GameEvents.InvokeOnCutToolSelected();
         ColorButtonImage();
+        
+        if(AudioManager.instance)
+            AudioManager.instance.Play("ButtonPress");
     }
 
     public void OnBackgroundOptionsToolPressed()
@@ -82,6 +95,9 @@ public class ToolsCanvasController : MonoBehaviour
         ToolsManager.CurrentToolState = ToolsState.BackgroundChange;
         GameEvents.InvokeOnBackgroundChangeToolSelected();
         ColorButtonImage();
+        
+        if(AudioManager.instance)
+            AudioManager.instance.Play("ButtonPress");
 
     }
     
@@ -94,6 +110,9 @@ public class ToolsCanvasController : MonoBehaviour
         GameEvents.InvokeOnMoveToolSelected();
         ColorButtonImage();
         
+        if(AudioManager.instance)
+            AudioManager.instance.Play("ButtonPress");
+        
     }
     
     public void OnScaleToolPressed()
@@ -103,6 +122,9 @@ public class ToolsCanvasController : MonoBehaviour
         ToolsManager.CurrentToolState = ToolsState.Scale;
         GameEvents.InvokeOnScaleToolSelected();
         ColorButtonImage();
+        
+        if(AudioManager.instance)
+            AudioManager.instance.Play("ButtonPress");
     }
 
 
@@ -116,7 +138,7 @@ public class ToolsCanvasController : MonoBehaviour
             }
             else
             {
-                buttonImageList[i].color = Color.white;
+                buttonImageList[i].color = Color.grey;
             }
         }
     }
@@ -141,6 +163,16 @@ public class ToolsCanvasController : MonoBehaviour
             int toolIndex = GameFlowController.only.ToolsActivationOrder[i];
             toolsButtonsList[toolIndex].transform.SetSiblingIndex(i);
         }
+    }
+    
+    private void OnEditInCorrect()
+    {
+       toolsPanelParent.SetActive(false);
+    }
+
+    private void OnEditCorrect()
+    {
+        toolsPanelParent.SetActive(false);
     }
 
 

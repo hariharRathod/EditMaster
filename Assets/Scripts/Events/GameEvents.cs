@@ -24,6 +24,10 @@ public static partial class GameEvents
 
     public static event Action ActivateDoneEditingButton;
 
+    public static event Action EditCorrect, EditIncorrect;
+
+    public static event Action GameWin, GameLose;
+
 
 
 
@@ -64,6 +68,14 @@ public static partial class GameEvents
     public static void InvokeOnMoveToolSelected() => MoveToolSelected?.Invoke();
 
     public static void InvokeOnScaleToolSelected() => ScaleToolSelected?.Invoke();
+
+    public static void InvokeOnEditCorrect() => EditCorrect?.Invoke();
+
+    public static void InvokeOnEditIncorrect() => EditIncorrect?.Invoke();
+
+    public static void InvokeOnGameWin() => GameWin?.Invoke();
+
+    public static void InvokeOnGameLose() => GameLose?.Invoke();
 }
 
 

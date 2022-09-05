@@ -20,7 +20,7 @@ public class ImageSelectHandler : MonoBehaviour
 
     }
 
-    private void DisableOutLine()
+    public void DisableOutLine()
     {
         outlineMaterial.SetFloat(OutlineEnabled,0);
         textureOffsetTween.Kill();

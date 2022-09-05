@@ -11,13 +11,19 @@ public class ExportButtonCanvasController : MonoBehaviour
     {        
         GameEvents.PicturePrefabInstantiateDone += OnPicturePrefabInstantiateDone;
         GameEvents.ActivateDoneEditingButton += OnActivateDoneEditingButton;
+        GameEvents.EditCorrect += OnEditCorrect;
+        GameEvents.EditIncorrect += OnEditIncorrect;
     }
 
     private void OnDisable()
     {
         GameEvents.PicturePrefabInstantiateDone -= OnPicturePrefabInstantiateDone;
         GameEvents.ActivateDoneEditingButton -= OnActivateDoneEditingButton;
+        GameEvents.EditCorrect -= OnEditCorrect;
+        GameEvents.EditIncorrect -= OnEditIncorrect;
     }
+
+    
 
     private void Start()
     {
@@ -37,7 +43,7 @@ public class ExportButtonCanvasController : MonoBehaviour
     {
         if(GameFlowController.only.LevelType != LevelType.MoveAndErase) return;
         
-        _sideButtonsCanvasController.ActivateMoveAndEraseTypeDoneEditingButton();
+        _sideButtonsCanvasController.ActivateExportButton();
     }
     
     public void OnExportButtonPressed()
@@ -46,7 +52,24 @@ public class ExportButtonCanvasController : MonoBehaviour
 
         exportButton.interactable = false;
         
+        if(AudioManager.instance)
+            AudioManager.instance.Play("ButtonPress");
+        
+        
         _editCheckController.EditCheck();
+        
+        
     }
 
+    private void OnEditIncorrect()
+    {
+       _sideButtonsCanvasController.SendOutExportButton();
+    }
+
+    private void OnEditCorrect()
+    {
+        _sideButtonsCanvasController.SendOutExportButton();
+    }
+    
+    
 }

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class MainCanvasController : MonoBehaviour
 {
-	[SerializeField] private GameObject tapToStart, victory, defeat, nextLevel, retry, constantRetryButton;
+	[SerializeField] private GameObject tapToStart, victory, defeat, nextLevel, retry, constantRetryButton,failLevelTextGameObject;
 	[SerializeField] private TextMeshProUGUI levelText;
 	[SerializeField] private Image red;
 	[SerializeField] private string tapInstruction, swipeInstruction;
@@ -21,13 +21,18 @@ public class MainCanvasController : MonoBehaviour
 
 	private void OnEnable()
 	{
-		
+		GameEvents.GameWin += OnGameWin;
+		GameEvents.GameLose += OnGameLose;
+
 	}
 
 	private void OnDisable()
 	{
-		
+		GameEvents.GameWin -= OnGameWin;
+		GameEvents.GameLose -= OnGameLose;
 	}
+
+	
 
 	private void Start()
 	{
@@ -83,7 +88,9 @@ public class MainCanvasController : MonoBehaviour
 
 		PlayerPrefs.SetInt("levelNo", PlayerPrefs.GetInt("levelNo", 1) + 1);
 
-		AudioManager.instance.Play("ButtonPress");
+		if(AudioManager.instance)
+			AudioManager.instance.Play("ButtonPress");
+		
 		Vibration.Vibrate(15);
 	}
 
@@ -109,7 +116,8 @@ public class MainCanvasController : MonoBehaviour
 			GA_FB.instance.LevelCompleted(levelNo.ToString());*/
 
 
-		AudioManager.instance.Play("Win");
+		if(AudioManager.instance)
+			AudioManager.instance.Play("GameWin");
 
 
 		/*if (ISManager.instance)
@@ -129,6 +137,7 @@ public class MainCanvasController : MonoBehaviour
 
 		defeat.SetActive(true);
 		retry.SetActive(true);
+		failLevelTextGameObject.SetActive(true);
 		//skipLevel.SetActive(true);
 		constantRetryButton.SetActive(false);
 		_hasLost = true;
@@ -136,7 +145,9 @@ public class MainCanvasController : MonoBehaviour
 		/*if (GA_FB.instance)
 			GA_FB.instance.LevelFail(levelNo.ToString());*/
 
-		AudioManager.instance.Play("Lose");
+		
+		if(AudioManager.instance)
+			AudioManager.instance.Play("GameLose");
 
 		/*if (ISManager.instance)
 			ISManager.instance.ShowInterstitialAds();*/
@@ -162,4 +173,6 @@ public class MainCanvasController : MonoBehaviour
 	{
 		Application.OpenURL("https://meemeegamesplay.blogspot.com/2022/01/privacy-policy-mee-mee-games-mee-mee.html");
 	}
+	
+	
 }

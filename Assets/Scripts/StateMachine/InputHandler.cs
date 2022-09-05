@@ -40,6 +40,8 @@ public class InputHandler : MonoBehaviour
 	{
 		GameEvents.OnTapToPlay += OnTapToPlay;
 		GameEvents.CutDoneAccurately += OnCutDoneAccurately;
+		GameEvents.EditCorrect += OnEditCorrect;
+		GameEvents.EditIncorrect += OnEditIncorrect;
 	}
 
 	
@@ -47,10 +49,11 @@ public class InputHandler : MonoBehaviour
 	{
 		GameEvents.OnTapToPlay -= OnTapToPlay;
 		GameEvents.CutDoneAccurately -= OnCutDoneAccurately;
+		GameEvents.EditCorrect -= OnEditCorrect;
+		GameEvents.EditIncorrect -= OnEditIncorrect;
 	}
 
 	
-
 	private void Start()
 	{
 		InputExtensions.IsUsingTouch = Application.platform != RuntimePlatform.WindowsEditor &&
@@ -133,7 +136,15 @@ public class InputHandler : MonoBehaviour
 		_currentInputState = IdleState;
 		ToolsManager.CurrentToolState = ToolsState.none;
 	}
-
 	
+	private void OnEditIncorrect()
+	{
+		_currentInputState = DisabledState;
+	}
+
+	private void OnEditCorrect()
+	{
+		_currentInputState = DisabledState;
+	}
 
 }
