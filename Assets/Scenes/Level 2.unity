@@ -3843,6 +3843,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1537915857865170941, guid: e79a8bed05b77004caf2f7cd1f639245, type: 3}
+      propertyPath: minToolsCount
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1537915858724622256, guid: e79a8bed05b77004caf2f7cd1f639245, type: 3}
       propertyPath: m_RootOrder
       value: 8

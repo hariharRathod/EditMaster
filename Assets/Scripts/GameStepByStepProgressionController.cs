@@ -6,7 +6,7 @@ public class GameStepByStepProgressionController : MonoBehaviour
 {
 
     [SerializeField] private bool enableStepByStepProgression;
-    
+    [SerializeField] private int minToolsCount;
     
     private Dictionary<int, int> _gameToolsProgressionDict;
 
@@ -100,7 +100,7 @@ public class GameStepByStepProgressionController : MonoBehaviour
 
     private void CheckIfToolsUsed()
     {
-        int minToolsCount = (int)GameFlowController.only.ToolsActivationOrder.Count / 2;
+       
         int count = 0;
         foreach (KeyValuePair<int,int> ele in _gameToolsProgressionDict)
         {

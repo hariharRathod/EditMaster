@@ -9,6 +9,7 @@ TagManager:
   - EditorCanvas
   - DragMovableArea
   - ScaleableDots
+  - SpriteChanger
   layers:
   - Default
   - TransparentFX

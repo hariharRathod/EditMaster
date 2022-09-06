@@ -41,7 +41,6 @@ public class DragMoveState : InputStateBase
 
         hit.transform.position = new Vector3(hit.point.x,hit.point.y,hit.transform.position.z);
 
-        
 
     }
 
