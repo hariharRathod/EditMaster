@@ -230,6 +230,8 @@ public class ImageEditController : MonoBehaviour
     private void OnScaleToolSeleted()
     {
        if(!IsSelected) return;
+
+       if (scaleStatus == ScaleStatus.NotScalable) return;
        
        _my.ScaleObjectHandler.EnableScaleFrame();
        

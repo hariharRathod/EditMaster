@@ -5,7 +5,12 @@ using UnityEngine;
 public class GameStepByStepProgressionController : MonoBehaviour
 {
 
+    [SerializeField] private bool enableStepByStepProgression;
+    
+    
     private Dictionary<int, int> _gameToolsProgressionDict;
+
+    public bool EnableStepByStepProgression => enableStepByStepProgression;
 
 
     private void Start()
@@ -34,6 +39,12 @@ public class GameStepByStepProgressionController : MonoBehaviour
         print("Tooltask completed");
         
         UpdateToolsDict(index);
+
+        if (!EnableStepByStepProgression)
+        {
+            CheckIfToolsUsed();
+            return;
+        }
         
         ActivateNextToolIndex(index);
 
@@ -75,6 +86,35 @@ public class GameStepByStepProgressionController : MonoBehaviour
     {
         _gameToolsProgressionDict[index] = 1;
         
+    }
+
+    private void CheckIfAllToolsUsed()
+    {
+        foreach (KeyValuePair<int,int> ele in _gameToolsProgressionDict)
+        {
+            if (ele.Value == 0) return;
+        }
+        
+        GameEvents.InvokeOnActivateDoneEditingButton();
+    }
+
+    private void CheckIfToolsUsed()
+    {
+        int minToolsCount = (int)GameFlowController.only.ToolsActivationOrder.Count / 2;
+        int count = 0;
+        foreach (KeyValuePair<int,int> ele in _gameToolsProgressionDict)
+        {
+            if (ele.Value == 1)
+            {
+                count++;
+                if (count >= minToolsCount)
+                {
+                    GameEvents.InvokeOnActivateDoneEditingButton();
+                    return;
+                }
+            }
+        }
+
     }
 
 

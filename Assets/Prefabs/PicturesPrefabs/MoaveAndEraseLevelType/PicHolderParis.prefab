@@ -832,7 +832,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1508665614029098273, guid: f4b945626d0b4464c8b3e58a84ea2cb5, type: 3}
       propertyPath: eraseStatus
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3499773955790149661, guid: f4b945626d0b4464c8b3e58a84ea2cb5, type: 3}
       propertyPath: m_Sprite
@@ -1317,6 +1317,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1225441209226252652}
     m_Modifications:
+    - target: {fileID: 1508665614029098273, guid: f4b945626d0b4464c8b3e58a84ea2cb5, type: 3}
+      propertyPath: scaleStatus
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1508665614029098273, guid: f4b945626d0b4464c8b3e58a84ea2cb5, type: 3}
       propertyPath: freeMovableStatus
       value: 1

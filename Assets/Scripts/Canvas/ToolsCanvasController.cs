@@ -138,7 +138,7 @@ public class ToolsCanvasController : MonoBehaviour
             }
             else
             {
-                buttonImageList[i].color = Color.grey;
+                buttonImageList[i].color = Color.white;
             }
         }
     }
@@ -162,6 +162,14 @@ public class ToolsCanvasController : MonoBehaviour
         {
             int toolIndex = GameFlowController.only.ToolsActivationOrder[i];
             toolsButtonsList[toolIndex].transform.SetSiblingIndex(i);
+        }
+
+        if (GameFlowController.GameStepByStepProgressionController.EnableStepByStepProgression) return;
+
+        for (int i = 0; i < GameFlowController.only.ToolsActivationOrder.Count; i++)
+        {
+            int toolIndex = GameFlowController.only.ToolsActivationOrder[i];
+            EnableToolButton(toolIndex);
         }
     }
     
